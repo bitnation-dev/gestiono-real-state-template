@@ -13,7 +13,7 @@ type CardProps = {
     parking: number;
     meters: number;
 }
-const Card = ({ title, description, image, price, location, bedrooms, bathrooms, parking, meters }: CardProps) => {
+const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters }: CardProps) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleFavorite = () => {

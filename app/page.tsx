@@ -1,6 +1,6 @@
 import Menu from "@/menu";
 import Footer from "@/footer";
-import { Grid, Column } from "@bitnation-dev/components";
+import { Grid } from "@bitnation-dev/components";
 import Card from "@/components/cards";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 export default function Home() {
