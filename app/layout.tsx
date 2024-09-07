@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "../src/globals.css";
-import Footer from "@/footer";
-import Menu from "@/menu";
+import { Container } from "@bitnation-dev/components";
 
 
 
@@ -17,11 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Menu/>
-      <body>
-        {children}
-      </body>
-      <Footer />
+      <Container>
+        <body>
+          {children}
+        </body>
+      </Container>
     </html>
   );
 }

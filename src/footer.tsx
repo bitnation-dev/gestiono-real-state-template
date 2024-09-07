@@ -2,8 +2,7 @@
 
 const Footer = () => {
     return (
-        <div className="absolute flex w-full items-end h-full pb-10">        
-        <footer className="bg-black text-white p-8 text-center h-[20%]">
+        <footer className="bg-black text-white p-4 text-center bottom-0 left-0 right-0">
             <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-1">
                     <h1 className="text-2xl font-bold text-left">Emira</h1>
@@ -57,7 +56,6 @@ const Footer = () => {
                 </div>
             </div>
         </footer>
-        </div>
     )
 };
 
