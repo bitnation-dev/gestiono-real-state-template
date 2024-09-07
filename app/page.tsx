@@ -19,8 +19,10 @@ export default function Home() {
                   <button className="w-[15%] h-10 text-black text-left pl-2 border-2 border-gray-500">Ordenar Por Reciente</button>
                   </div>
                   <h1 className="text-2xl font-bold pt-4 pl-4">INMUEBLES DE SANTIAGO</h1>
-                  <div className="grid grid-cols-3 gap-4">
-                    <Card />
+                  <div className="grid grid-cols-3 gap-2">
+                    {Array.from({ length: 6 }).map((_, index) => (
+                      <Card key={index} image="/imagen3.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} />
+                    ))}
                   </div>
                 </div>
             </div>

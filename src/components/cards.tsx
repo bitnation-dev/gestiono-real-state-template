@@ -1,18 +1,18 @@
 'use client'
 import { useState } from "react";
-
+import { formatted } from "./formatted";
 type CardProps = {
     title?: string;
     description?: string;
     image: string;
-    price: string;
+    price: number;
     location: string;
     bedrooms: number;
     bathrooms: number;
-    garages: number;
+    parking: number;
     meters: number;
 }
-const Card = ({title, description, image, price, location, bedrooms, bathrooms, garages, meters}: CardProps) => {
+const Card = ({title, description, image, price, location, bedrooms, bathrooms, parking, meters}: CardProps) => {
     const [color, setColor] = useState('transparent');
     
     const onColor = () => {
@@ -30,15 +30,15 @@ const Card = ({title, description, image, price, location, bedrooms, bathrooms, 
                 </button>
             </div>
             <div className="h-16 flex flex-grow space-x-4 py-4">
-                <h1 className="text-2xl font-bold">US$ 180,000.00</h1>
-                <p className="text-sm text-black pt-2"> 1,200 m2</p>
+                <h1 className="text-2xl font-bold">{"US$" + formatted(price)}</h1>
+                <p className="text-sm text-black pt-2"> {meters + " m2"} </p>
             </div>
             <div className="h-16 flex flex-grow space-x-10 ">
-                <p className="text-sm text-gray-500 pt-2 ">4 Baths</p>
-                <p className="text-sm text-gray-500 pt-2">4 Beds</p>
-                <p className="text-sm text-gray-500 pt-2"> 6 Garages</p>
+                <p className="text-sm text-gray-500 pt-2 ">{bathrooms + " Baths"} </p>
+                <p className="text-sm text-gray-500 pt-2">{bedrooms + " Beds"}</p>
+                <p className="text-sm text-gray-500 pt-2">{parking + " Parking"}</p>
             </div>
-            <p className="text-sm text-black pt-2 flex flex-col justify-end">Santo Domingo</p>
+            <p className="text-sm text-black pt-2 flex flex-col justify-end">{location}</p>
         </div>
     )
 }
