@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react";
 import { formatted } from "./formatted";
+import { HeartIcon, BathIcon, BedIcon, ParkingIcon } from "./icons";
 type CardProps = {
     title?: string;
     description?: string;
@@ -12,21 +13,19 @@ type CardProps = {
     parking: number;
     meters: number;
 }
-const Card = ({title, description, image, price, location, bedrooms, bathrooms, parking, meters}: CardProps) => {
-    const [color, setColor] = useState('transparent');
-    
-    const onColor = () => {
-        setColor(prevColor => prevColor === 'transparent' ? 'red' : 'transparent');
+const Card = ({ title, description, image, price, location, bedrooms, bathrooms, parking, meters }: CardProps) => {
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const toggleFavorite = () => {
+        setIsFavorite(prev => !prev);
     }
 
     return (
         <div className="w-96 h-80 flex flex-col mt-4">
             <div className="w-full h-full relative">
                 <img src={image} alt="" className="w-full h-full object-cover" />
-                <button className="absolute top-2 right-2" onClick={onColor}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke={color === 'red' ? 'red' : 'white'} />
-                    </svg>
+                <button className="absolute top-2 right-2" onClick={toggleFavorite}>
+                    <HeartIcon color={isFavorite} />
                 </button>
             </div>
             <div className="h-16 flex flex-grow space-x-4 py-4">
@@ -34,9 +33,18 @@ const Card = ({title, description, image, price, location, bedrooms, bathrooms, 
                 <p className="text-sm text-black pt-2"> {meters + " m2"} </p>
             </div>
             <div className="h-16 flex flex-grow space-x-10 ">
-                <p className="text-sm text-gray-500 pt-2 ">{bathrooms + " Baths"} </p>
-                <p className="text-sm text-gray-500 pt-2">{bedrooms + " Beds"}</p>
-                <p className="text-sm text-gray-500 pt-2">{parking + " Parking"}</p>
+                <div className="flex items-center space-x-2">
+                <BathIcon />
+                    <p className="text-sm text-gray-500">{bathrooms + " Baths"} </p>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <BedIcon />
+                    <p className="text-sm text-gray-500 ">{bedrooms + " Beds"}</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                    <ParkingIcon />
+                    <p className="text-sm text-gray-500">{parking + " Parking"}</p>
+                </div>
             </div>
             <p className="text-sm text-black pt-2 flex flex-col justify-end">{location}</p>
         </div>
