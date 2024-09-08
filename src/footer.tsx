@@ -1,12 +1,18 @@
-
+import { MainIcon } from "./components/icons";
 
 const Footer = () => {
     return (
-        <footer className="bg-black text-white p-4 text-center bottom-0 left-0 right-0">
+        <footer className="bg-black text-white p-4 text-center w-screen absolute">
             <div className="grid grid-cols-3 gap-4">
                 <div className="col-span-1">
-                    <h1 className="text-2xl font-bold text-left">Emira</h1>
-                    <p className="text-left">Somos los expertos que necesitas para sentirte seguro a la hora de invertir en inmuebles desde Rep Dom</p>
+                    <div className="flex pb-4">
+                        <MainIcon />
+                    </div>
+                    <p className="text-left">
+                        Somos los expertos que necesitas para <br />
+                        sentirte seguro a la hora de invertir en <br />
+                        inmuebles desde Rep Dom
+                    </p>
                     <div className="flex pt-8">
                         <div className="col-span-1 flex justify-center items-center space-x-4">
                             <a href="#" aria-label="Instagram">
