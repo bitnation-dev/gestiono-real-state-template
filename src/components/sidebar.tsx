@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { SideFilter, SideFilterMoney } from './sidefilter'
 type FilterProps = {
     results?: number;
-    type?: any
+
 }
 
-const Filter = ({ results, type }: FilterProps) => {
+const Filter = ({ results }: FilterProps) => {
     const [onFilter, setOnFilter] = useState(true)
 
     const handleColor = () => {
