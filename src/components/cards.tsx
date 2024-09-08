@@ -21,7 +21,7 @@ const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters }: 
     }
 
     return (
-        <div className="w-96 h-80 flex flex-col mt-4">
+        <div className=" h-80 flex flex-col mt-4 p-1">
             <div className="w-full h-full relative">
                 <img src={image} alt="" className="w-full h-full object-cover" />
                 <button className="absolute top-2 right-2" onClick={toggleFavorite}>
