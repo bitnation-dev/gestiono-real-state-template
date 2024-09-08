@@ -18,7 +18,7 @@ export const ArrowRightIcon = () => {
     )
 }
 type HeartProps = {
-    color: any
+    color?: boolean
 }
 
 export const HeartIcon = ({ color }: HeartProps) => {
