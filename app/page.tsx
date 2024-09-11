@@ -5,19 +5,19 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import Filter from "@/components/sidebar";
 
 
-export default function Home() {
+export default function Dashboard() {
   return (
-    <Container>
+    <Container className="relative bottom-10">
       <Grid columns={{ xl: 1 }}>
         <div className="flex items-center h-48 text-white text-center bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
           <h1 className="text-4xl font-bold pt-10 pl-4">Búsqueda Por Ciudad</h1>
         </div>
         <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
-          <div className="flex space-x-4 px-4">
-            <div className="text-black  h-screen">
+          <div className="flex space-x-4">
+            <div className="text-black">
               <Filter />
             </div>
-            <div className="text-black px-8">
+            <div className="text-black ">
               <div className="flex space-x-4">
                 <input type="text" placeholder="Buscar por ciudad" className="w-[80%] h-10 px-4 py-2 border-2 border-gray-500 bg-white text-black" />
                 <div className="w-[20%] h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover: cursor-pointer">
