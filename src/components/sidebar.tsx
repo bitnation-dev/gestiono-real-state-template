@@ -14,7 +14,7 @@ const Filter = ({ results }: FilterProps) => {
         setOnFilter(!onFilter)
     }
     return (
-        <div className="w-full p-8">
+        <div className="w-full p-8 hidden lg:block xl:block">
             <div className="flex pb-8">
                 <p className="text-black font-bold">{results} Resultados</p>
             </div>
