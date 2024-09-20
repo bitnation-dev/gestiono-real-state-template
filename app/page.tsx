@@ -8,6 +8,7 @@ import CityCard from "@/components/cityCard";
 import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import InfoInput from "@/components/input";
 
 
 export default function Home() {
@@ -46,25 +47,33 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+                    <div className="flex justify-end">
                     <Button1 text="Mas Proyectos Similares" icon onClick={() => router.push('/proyects')}/>
+                    </div>
                 </Column>
                 <Column columns={{ xl: { width: 4 }, md: { width: 1 }, }}>
-                    <div className="bg-[#F5F5F5] h-[65vh]">
+                    <div className="bg-[#F5F5F5] h-[60vh] xl:h-[47vh]">
                         <Grid columns={{ xl: 2, md: 2, sm: 1, }}>
-                            <div className="flex justify-center items-center" onClick={() => setInfoInput(false)}>
-                                <Image src="/imagenP.png" alt="image" width={500} height={500} sizes="(max-width: 768px) 100vw, 33vw" quality={100}/>
+                            <div className="flex justify-center items-center relative bottom-12 " onClick={() => setInfoInput(false)}>
+                                <Image src="/imagenP.png" alt="image" width={425} height={425}  quality={100}/>
                             </div>
                             <div className="flex justify-center items-center" >
                                 {infoInput ? (
-                                    <InfoInput />
+                                    <div className="">
+                                        <InfoInput />
+                                        <div className="flex space-x-2 relative bottom-8">
+                                        <ButtonMail text='Contactanos'/>
+                                        <ButtonWhatsapp text="Contáctanos"/>
+                                        </div>
+                                    </div>
                                 ) : (
                                     <div className="flex flex-col space-y-4">
                                         <h1 className="text-4xl font-extrabold text-[#3B4504] font-[Neco]">Asesoria Gratis</h1>
                                         <p className="text-2xl text-[#3B4504] text-justify font-thin">Elimina dudas o busca donde invertir <br /> con la asistencia de un experto en <br />
                                         inversiones inmobiliarias</p>
                                         <div className="flex justify-center items-center space-x-4">
-                                            <ButtonMail text="Contactanos" onClick={handleInfoInput}/>
-                                            <ButtonWhatsapp />
+                                            <ButtonMail text="Contáctanos" onClick={handleInfoInput}/>
+                                            <ButtonWhatsapp text="Contáctanos"/>
                                         </div>
                                     </div>
                                 )}
@@ -73,7 +82,7 @@ export default function Home() {
                     </div>
                 </Column>
                 <Column columns={{ xl: { width: 4 }, md: { width: 1 }, }}>
-                    <div className="h-[25vh] flex flex-col justify-center items-center space-y-4">
+                    <div className=" flex flex-col justify-center items-center space-y-4 py-24">
                       <h1 className="text-4xl font-bold text-[#3B4504] font-[Neco]">Búsqueda por Ciudad</h1>
                       <p className="text-2xl text-[#757575] text-justify font-thin">
                       Busca proyectos en las ciudades con mayor crecimiento del país
@@ -87,37 +96,3 @@ export default function Home() {
     )
 }
 
-const InfoInput = () => {
-    return (
-        <div className="flex flex-col space-y-4 w-[60%] h-96 ">
-            <div>
-                <h2 className="text-lg font-semibold mb-2 text-black">Nombre</h2>
-                <input
-                    type="text"
-                    placeholder="Josue"
-                    className="w-full px-3 py-2 border rounded-md"
-                />
-            </div>
-            <div>
-                <h2 className="text-lg font-semibold mb-2 text-black">Email</h2>
-                <input
-                    type="email"
-                    placeholder="tu@email.com"
-                    className="w-full px-3 py-2 border rounded-md"
-                />
-            </div>
-            <div>
-                <h2 className="text-lg font-semibold mb-2 text-black">Mensaje</h2>
-                <textarea
-                    placeholder="Estoy interesado en este proyecto..."
-                    className="w-full px-3 py-2 border rounded-md"
-                    rows={4}
-                ></textarea>
-            </div>
-            <div className="flex justify-center items-center space-x-4">
-                <ButtonMail text="Enviar" />
-                <ButtonWhatsapp />
-            </div>
-        </div>
-    )
-}

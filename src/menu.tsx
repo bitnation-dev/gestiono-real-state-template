@@ -14,8 +14,8 @@ const Header = () => {
                 <MainIcon />
             </div>
             <div className="flex space-x-4 pr-12">
-                <a href="#" className="hover:text-[#3B4504]">Home</a>
-                <a href="#" className="hover:text-[#3B4504]">Inmuebles</a>
+                <a href="/" className="hover:text-[#3B4504]">Home</a>
+                <a href="/proyects" className="hover:text-[#3B4504]">Inmuebles</a>
                 <a href="#" className="hover:text-[#3B4504]">Nosotros</a>
                 </div>
             </div>
