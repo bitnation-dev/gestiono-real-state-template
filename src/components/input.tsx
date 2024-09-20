@@ -1,12 +1,9 @@
 import React from 'react';
-import { ButtonMail, ButtonWhatsapp } from '@/components/button';
 
-type InfoProps = {
-    width?: number
-    hidden?: boolean
-}
 
-const InfoInput = ({ width, hidden }: InfoProps) => {
+
+
+const InfoInput = () => {
     return (
         <div className={`flex flex-col space-y-4 h-96 `}>
             <div>
