@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import InfoInput from "@/components/input";
 
 
+
 export default function Home() {
 
   const [infoInput, setInfoInput] = useState(false);
@@ -20,6 +21,10 @@ export default function Home() {
   }
 
   const router = useRouter();
+  const handleRouter = () => {
+    router.push("/description")
+  }
+  
 
     return (
         <Container >
@@ -42,7 +47,7 @@ export default function Home() {
                         <div className="overflow-x-auto h-[40vh]">
                             <div className="inline-flex space-x-1 ">
                                 {Array.from({ length: 4 }).map((_, index) => (
-                                    <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} />
+                                    <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} onClick={handleRouter}/>
                                 ))}
                             </div>
                         </div>
