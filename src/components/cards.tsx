@@ -13,8 +13,9 @@ type CardProps = {
     bathrooms: number;
     parking: number;
     meters: number;
+    onClick?: () => void;
 }
-const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters }: CardProps) => {
+const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters, onClick }: CardProps) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleFavorite = () => {
@@ -22,7 +23,7 @@ const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters }: 
     }
 
     return (
-        <div className=" h-80 flex flex-col mt-4 p-1">
+        <div className=" h-80 flex flex-col mt-4 p-2 cursor-pointer" onClick={onClick}>
             <div className="w-full h-full relative">
                 <Image width={1000} height={1000} src={image} alt="" className="w-full h-full object-cover" />
                 <button className="absolute top-2 right-2" onClick={toggleFavorite}>
@@ -47,7 +48,7 @@ const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters }: 
                     <p className="text-sm text-gray-500">{parking + " Parking"}</p>
                 </div>
             </div>
-            <p className="text-sm text-black pt-2 flex flex-col justify-end">{location}</p>
+            <p className="text-sm text-[#3B4504] pt-2 flex flex-col justify-end">{location}</p>
         </div>
     )
 }
