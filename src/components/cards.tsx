@@ -23,7 +23,7 @@ const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters, on
     }
 
     return (
-        <div className=" h-80 flex flex-col mt-4 p-2 cursor-pointer" onClick={onClick}>
+        <div className="flex flex-col mt-4 p-2 cursor-pointer" onClick={onClick}>
             <div className="w-full h-full relative">
                 <Image width={1000} height={1000} src={image} alt="" className="w-full h-full object-cover" />
                 <button className="absolute top-2 right-2" onClick={toggleFavorite}>
@@ -36,7 +36,7 @@ const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters, on
             </div>
             <div className="h-16 flex flex-grow space-x-10 ">
                 <div className="flex items-center space-x-2">
-                <BathIcon />
+                    <BathIcon />
                     <p className="text-sm text-gray-500">{bathrooms + " Baths"} </p>
                 </div>
                 <div className="flex items-center space-x-2">

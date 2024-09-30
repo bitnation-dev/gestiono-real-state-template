@@ -3,8 +3,8 @@ import { Container } from "@bitnation-dev/components";
 
 const Footer = () => {
     return (
-        <Container>
-            <footer className="bg-black text-white p-4 text-center w-full relative">
+        <Container className="bg-black">
+            <footer className=" text-white p-4 text-center w-full relative">
                 <div className="grid grid-cols-3 gap-4">
                     <div className="col-span-1">
                         <div className="flex pb-4">

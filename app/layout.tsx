@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "../src/globals.css";
-import Header from "@/menu";
+import Header from "@/header";
 import Footer from "@/footer";
+import StyledComponentsRegistry from "./registry";
 
 
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <StyledComponentsRegistry>
+          <Header />
+          {children}
+          <Footer />
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
