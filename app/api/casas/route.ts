@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs/promises';
 import path from 'path';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const filePath = path.join(process.cwd(), 'public', 'data', 'house.json');
     const jsonData = await fs.readFile(filePath, 'utf8');
