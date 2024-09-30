@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@bitnation-dev/components": "^1.9.6",
+    "@types/styled-components": "^5.1.34",
     "next": "^14.2.12",
     "react": "^18",
     "react-dom": "^18",

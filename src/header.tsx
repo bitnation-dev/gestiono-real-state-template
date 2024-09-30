@@ -1,15 +1,11 @@
-'use client'
-
 import { MainIcon } from "./components/icons";
 import { Container } from "@bitnation-dev/components";
 
 
 const Header = () => {
-    {/*const pathname = usePathname();*/}
     return (
-        <Container>      
-            {/*flex justify-between items-center bg-gradient-to-b from-black via-black to-transparent text-white z-50 h-20 w-full !p-0*/ }     
-            <div className="flex justify-between items-center bg-black text-white z-50 h-20 w-full !p-0">
+        <Container className=" bg-black !p-0 h-20"> 
+            <div className="flex justify-between items-centertext-white h-full w-full !p-0">
                 <div className="pl-12">
                 <MainIcon />
             </div>
