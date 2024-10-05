@@ -7,13 +7,13 @@ import Filter from "@/components/sidebar";
 
 const Home = () => {
   return (
-    <Container className="relative bottom-10">
+    <Container >
       <Grid columns={{ xl: 1 }}>
         <div className="flex items-center h-48 text-white text-center bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
           <h1 className="text-4xl font-bold pt-10 pl-4">Búsqueda Por Ciudad</h1>
         </div>
         <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
-          <div className="flex space-x-4">
+          <div className="flex space-x-8">
             <div className="text-black">
               <Filter />
             </div>
