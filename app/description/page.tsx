@@ -69,7 +69,11 @@ const Description = () => {
                                 height="450"
                                 style={{ border: 0 }}
                                 referrerPolicy="no-referrer-when-downgrade"
-                                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCVBU0OFUq6wQ_7VhBUNLmlYF1g6aSWds0">
+                                src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
+                                    key: process.env.GOOGLE_MAPS_KEY as string,
+                                    q: "Punta Cana",
+                                })}`}
+                            >
                             </iframe>
                         </div>
                     </div>
