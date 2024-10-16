@@ -17,10 +17,10 @@ const Home = () => {
             <div className="text-black">
               <Filter />
             </div>
-            <div className="text-black ">
+            <div className="text-black w-screen ">
               <div className="flex space-x-4">
                 <input type="text" placeholder="Buscar por ciudad" className="w-[80%] h-10 px-4 py-2 border-2 border-gray-500 bg-white text-black" />
-                <div className="w-[20%] h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover: cursor-pointer">
+                <div className=" h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover: cursor-pointer">
                   <p>Ordenar Por Reciente </p>
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
@@ -33,7 +33,6 @@ const Home = () => {
                   <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} />
                 ))}
               </div>
-
             </div>
           </div>
           <div className="flex w-full justify-end py-20 ">

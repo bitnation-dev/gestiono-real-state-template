@@ -86,7 +86,7 @@ export default function Home() {
             <Container>
                 <div className=" flex flex-col justify-center items-center space-y-4 py-24">
                     <h1 className="text-4xl font-bold text-[#3B4504] font-[Neco]">Búsqueda por Ciudad</h1>
-                    <p className="text-2xl text-[#757575] text-justify font-thin">
+                    <p className="text-2xl text-[#757575] text-justify font-[poppins] ">
                         Busca proyectos en las ciudades con mayor crecimiento del país
                     </p>
                     <CityCard />
