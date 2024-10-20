@@ -1,3 +1,5 @@
+"use client"
+
 import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button"
 import CardComment from "@/components/commentCard"
 import { MainIcon } from "@/components/icons"
@@ -6,12 +8,22 @@ import Profile from "@/components/profile"
 import { Column, Container, Grid } from "@bitnation-dev/components"
 import Image from "next/image"
 import React from "react"
+import { usePathname } from "next/navigation"
+
 
 const AboutUs = () => {
+
+    const pathname = usePathname()
+    const pageName = <span style={{ color: '#9C9C78' }}>Nosotros</span>
     return (
         <Container>
+            <div className="pb-4">
+                <p className="text-black font-['poppins']">
+                    Home &gt; {pathname === "/aboutus" ? pageName : pathname}
+                </p>
+            </div>
             <div>
-                <h1 className="text-4xl text-black font-bold">
+                <h1 className="text-4xl text-black font-bold font-['Poppins'] ">
                     Nosotros
                 </h1>
             </div>
@@ -59,10 +71,24 @@ const AboutUs = () => {
                             Nuestra Oficina
                         </h1>
                         <div className="flex ">
-                            <div className="bg-red-500  w-1/2">
+                            <div className="w-1/2">
                             <Image src={"/imagenH.png"} alt="" width={700} height={500}/>
                             </div>
-                            <div className="w-1/2"></div>
+                            <div className="w-1/2">
+                            <div className="mapContainer">
+                        <iframe
+                                width="600"
+                                height="465"
+                                style={{ border: 0 }}
+                                referrerPolicy="no-referrer-when-downgrade"
+                                src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
+                                    key: process.env.GOOGLE_MAPS_KEY as string,
+                                    q: "Santiago",
+                                    })}`}
+                                >
+                                </iframe>
+                            </div>
+                            </div>
                         </div>
                     </div>
                     <div className="flex justify-center pb-4">

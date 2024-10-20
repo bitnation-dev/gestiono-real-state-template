@@ -1,3 +1,5 @@
+"use client"
+
 import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button";
 import Card from "@/components/cards";
 import { formatted } from "@/components/formatted";
@@ -5,6 +7,7 @@ import { ArrowButtonLeft, ArrowButtonRight, BathIcon, BedIcon, ParkingIcon } fro
 import InfoInput from "@/components/input";
 import { Column, Container, Grid } from "@bitnation-dev/components";
 import Image from "next/image";
+import { useState } from "react";
 
 interface DescriptionProps {
 price: number
@@ -17,16 +20,28 @@ parking: string
 }
 
 const Description: React.FC<DescriptionProps> = ({ price, locations,meters, bathrooms, parking, bedrooms })=> {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const totalImages = 10;
+
+    const handlePrevImage = () => {
+        setCurrentImageIndex((prevIndex) => 
+            prevIndex === 0 ? totalImages - 1 : prevIndex - 1
+        );
+    };
+
+    const handleNextImage = () => {
+        setCurrentImageIndex((prevIndex) => 
+            (prevIndex + 1) % totalImages
+        );
+    };
+
     return (
         <Container>
-            <div className="h-24">
+            <div className="">
                 <h1 className="text-[#0E87A2] text-3xl">{locations} ST005-Santo domingo, districto, Rep. dom. </h1>
             </div>
-            <div className=" flex space-x-4 py-4" >
-                <h1 className="text-2xl text-[#3B4504] font-bold ">{"US$" + formatted(price)}</h1>
-                <p className="text-sm text-black pt-2"> {meters + " m2"} </p>
-            </div>
-            <div className=" flex flex-grow space-x-2 ">
+            <div className=" flex space-x-2 items-center space-x-4">
+            <h1 className="text-2xl text-[#3B4504] font-bold ">{"US$" + formatted(price)}</h1>
                 <div className="flex items-center space-x-2">
                     <BathIcon />
                     <p className="text-sm text-gray-500">{bathrooms + " Baths"} </p>
@@ -38,26 +53,40 @@ const Description: React.FC<DescriptionProps> = ({ price, locations,meters, bath
                 <div className="flex items-center space-x-2">
                     <ParkingIcon />
                     <p className="text-sm text-gray-500">{parking + " Parking"}</p>
-                    </div>
-                    </div>
+                </div>
+                <div className=" flex space-x-4 py-4" >
+                    <p className="text-sm text-black pt-2"> {meters + " m2"} </p>
+                </div>
+                </div>
+                <div className="flex border-t border-b border-gray-300 items-center mb-8 py-2">
+            <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Descripcion </button>
+            <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Ubicacion </button>
+            <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Calculo de Prestamo </button>
+            <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Proyectos Similares </button>
+                </div>
             <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
                 <Column columns={{ xl: { width: 3 }, md: { width: 1 }, sm: { width: 1 }, }} className="space-y-4 ">
-
                     <div className="h-[50vh] flex justify-center items-center relative">
                         <div className="flex px-4 w-full justify-between">
-                            <button className="z-10">
+                            <button className="z-10" onClick={handlePrevImage}>
                                 <ArrowButtonLeft />
                             </button>
-                            <button className="z-10">
+                            <button className="z-10" onClick={handleNextImage}>
                                 <ArrowButtonRight />
                             </button>
                         </div>
-                        <Image src="/image/imagenhouse.png" alt="Descripción de la imagen" fill />
-                    </div>
-                    <div className="h-[15vh] overflow-x-auto">
-                        <div className="inline-flex space-x-1 h-full">
+                        <div className=" overflow-x-auto">
+                        <div className="inline-flex space-x-1">
                             {Array.from({ length: 10 }).map((_, index) => (
-                                <Image key={index} src={`/image/image${index + 1}.jpg`} alt={`Imagen ${index}`} width={200} height={200} />
+                                <Image key={index} src={`/image/image${currentImageIndex + 1}.jpg`} alt={`Imagen ${currentImageIndex}`} fill />
+                            ))}
+                        </div>
+                    </div>
+                    </div>
+                    <div className=" overflow-x-auto ">
+                        <div className="flex space-x-1">
+                            {Array.from({ length: 10 }).map((_, index) => (
+                                <Image key={index} src={`/image/image${index + 1}.jpg`} alt={`Imagen ${index}`} width={150} height={150} />
                             ))}
                         </div>
                     </div>
@@ -101,11 +130,11 @@ const Description: React.FC<DescriptionProps> = ({ price, locations,meters, bath
                                 width="600"
                                 height="450"
                                 style={{ border: 0 }}
-                                referrerPolicy="no-referrer-when-downgrade"
+                                 referrerPolicy="no-referrer-when-downgrade"
                                 src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
                                     key: process.env.GOOGLE_MAPS_KEY as string,
                                     q: "Punta Cana",
-                                })}`}
+                                    })}`}
                             >
                             </iframe>
                         </div>

@@ -3,14 +3,22 @@ import { Grid, Container } from "@bitnation-dev/components";
 import Card from "@/components/cards";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import Filter from "@/components/sidebar";
+import { usePathname } from "next/navigation";
 
 
 const Home = () => {
+  const pathname = usePathname()
+  const pageName = <span style={{ color: '#9C9C78' }}>Inmuebles</span>
   return (
     <Container >
       <Grid columns={{ xl: 1 }}>
-        <div className="flex items-center h-48 text-white text-center bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
-          <h1 className="text-4xl font-bold pt-10 pl-4">Búsqueda Por Ciudad</h1>
+        <div className="flex flex-col pt-8 h-48 text-white pl-8  bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
+          <div className="mb-4">
+            <p className="font-['poppins']">
+              Home &gt; {pathname === "/proyects" ? pageName : pathname}
+            </p>
+          </div>
+          <h1 className="text-4xl font-bold font-['poppins']">Inmuebles</h1>
         </div>
         <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
           <div className="flex space-x-8">
