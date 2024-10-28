@@ -10,18 +10,22 @@ const Home = () => {
   const pathname = usePathname()
   const pageName = <span style={{ color: '#9C9C78' }}>Inmuebles</span>
   return (
-    <Container >
+    < >
       <Grid columns={{ xl: 1 }}>
-        <div className="flex flex-col pt-8 h-48 text-white pl-8  bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
-          <div className="mb-4">
+        <Container className=" bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
+          <div className="flex flex-col  text-white ">
+            <div className="mb-4">
             <p className="font-['poppins']">
               Home &gt; {pathname === "/proyects" ? pageName : pathname}
             </p>
           </div>
           <h1 className="text-4xl font-bold font-['poppins']">Inmuebles</h1>
-        </div>
-        <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
-          <div className="flex space-x-8">
+          </div>
+        </Container>
+
+          <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
+          <Container>
+            <div className="flex space-x-8">
             <div className="text-black">
               <Filter />
             </div>
@@ -41,10 +45,10 @@ const Home = () => {
                   <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} />
                 ))}
               </div>
+              </div>
             </div>
-          </div>
-          <div className="flex w-full justify-end py-20 ">
-            <div className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer">
+            <div className="flex w-full justify-end py-20 ">
+              <div className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer">
               <ArrowLeftIcon />
             </div>
             {[1, 2, 3, 4].map((page) => (
@@ -54,9 +58,10 @@ const Home = () => {
               <ArrowRightIcon />
             </button>
           </div>
+          </Container>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
 }
 

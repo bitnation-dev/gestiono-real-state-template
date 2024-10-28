@@ -128,11 +128,11 @@ const Description: React.FC<DescriptionProps> = ({ price, locations,meters, bath
                         <div className="mapContainer">
                         <iframe
                                 width="600"
-                                height="450"
+                                height="500"
                                 style={{ border: 0 }}
                                  referrerPolicy="no-referrer-when-downgrade"
                                 src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
-                                    key: process.env.GOOGLE_MAPS_KEY as string,
+                                    key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || '', 
                                     q: "Punta Cana",
                                     })}`}
                             >
