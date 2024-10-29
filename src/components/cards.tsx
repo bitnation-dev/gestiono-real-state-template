@@ -9,17 +9,15 @@ type CardProps = {
     id?: number;
     price: number;
     bathrooms: number;
-    description: string;
     bedrooms: number;
     parking: number;
     operation: string;
     image: string;
     location: string;
     meters: number;
-    title: string;
     onClick?: () => void;
 }
-const Card = ({ id, TP, title, description, image, price, location, bedrooms, bathrooms, parking, meters, type, onClick }: CardProps) => {
+const Card = ({  image, price, location, bedrooms, bathrooms, parking, meters, onClick }: CardProps) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleFavorite = () => {

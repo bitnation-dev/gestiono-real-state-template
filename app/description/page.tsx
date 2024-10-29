@@ -185,7 +185,7 @@ const Description: React.FC<DescriptionProps> = ({ price, locations,meters, bath
                         <div className="overflow-x-auto h-[40vh]">
                             <div className="inline-flex space-x-1 ">
                                 {Array.from({ length: 3 }).map((_, index) => (
-                                    <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} />
+                                    <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} operation="comprar" />
                                 ))}
                             </div>
                         </div>

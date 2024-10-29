@@ -45,7 +45,7 @@ export default function Home() {
                 <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
                     {Array.from({ length: 4 }).map((_, index) => (
                         <Column key={(_ as { id: number })?.id || index} columns={{ md: { width: 2 }, }} >
-                            <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} onClick={handleRouter} />
+                            <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} operation="comprar" onClick={handleRouter} />
                         </Column>
                     ))}
                 </Grid>

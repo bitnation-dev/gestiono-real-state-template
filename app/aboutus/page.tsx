@@ -2,7 +2,7 @@
 
 import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button"
 import CardComment from "@/components/commentCard"
-import { MainIcon, MainIconBig } from "@/components/icons"
+import {  MainIconBig } from "@/components/icons"
 import InfoInput from "@/components/input"
 import Profile from "@/components/profile"
 import { Column, Container, Grid } from "@bitnation-dev/components"

@@ -30,13 +30,6 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchLocation, setSearchLocation] = useState('');
-  const [filters, setFilters] = useState({
-    operation: 'comprar',
-    type: '',
-    bedrooms: '',
-    bathrooms: '',
-    parking: '',
-  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -120,9 +113,7 @@ const Home = () => {
                       bedrooms={propiedad.bedrooms}
                       bathrooms={propiedad.bathrooms}
                       parking={propiedad.parking}
-                      meters={propiedad.meters}
-                      title={propiedad.title}
-                      description={propiedad.description}
+                      meters={propiedad.meters} 
                       operation={propiedad.operation}
                     />
                   ))}
