@@ -4,18 +4,22 @@ import { formatted } from "./formatted";
 import { HeartIcon, BathIcon, BedIcon, ParkingIcon } from "./icons";
 import Image from "next/image";
 type CardProps = {
-    title?: string;
-    description?: string;
-    image: string;
+    type?: "venta" | "renta";
+    TP?: "Apartamento" | "Casa" | "Condominio" | "EcoAmigable";
+    id?: number;
     price: number;
-    location: string;
-    bedrooms: number;
     bathrooms: number;
+    description: string;
+    bedrooms: number;
     parking: number;
+    operation: string;
+    image: string;
+    location: string;
     meters: number;
+    title: string;
     onClick?: () => void;
 }
-const Card = ({ image, price, location, bedrooms, bathrooms, parking, meters, onClick }: CardProps) => {
+const Card = ({ id, TP, title, description, image, price, location, bedrooms, bathrooms, parking, meters, type, onClick }: CardProps) => {
     const [isFavorite, setIsFavorite] = useState(false);
 
     const toggleFavorite = () => {

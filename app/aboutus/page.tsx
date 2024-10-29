@@ -103,9 +103,8 @@ const AboutUs = () => {
                     </div>
                 </Column>
                 </Container>
-                <Container>
                 <Column columns={{ xl: { width: 5 }, md: { width: 1 }, }}>
-                <Container className="bg-[#F5F5F5] [&>.container-inside]:!p-0 mt-10">
+                <Container className="bg-[#F5F5F5] [&>.container-inside]:!p-0 mt-10 mb-16">
                 <div>
                     <Grid columns={{ xl: 2, md: 2, sm: 1, }}>
                         <div className="flex justify-center items-center -mt-10 " >
@@ -124,7 +123,6 @@ const AboutUs = () => {
                     </div>
                 </Container>
                 </Column>
-                </Container>
         </>
     )
 }
