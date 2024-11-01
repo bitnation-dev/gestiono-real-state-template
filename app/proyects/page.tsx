@@ -5,6 +5,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import Filter from "@/components/sidebar";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Propiedades {
   id: number;
@@ -30,6 +31,7 @@ const Home = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchLocation, setSearchLocation] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,6 +70,11 @@ const Home = () => {
     setSearchLocation(e.target.value);
     setCurrentPage(1); 
   };
+
+  const handleRouter = (id: number) => {
+    router.push(`/description?id=${id}`)
+}
+
 
 
   if (error) return <div className="text-black h-screen flex justify-center items-center">{error}</div>;
@@ -115,6 +122,7 @@ const Home = () => {
                       parking={propiedad.parking}
                       meters={propiedad.meters} 
                       operation={propiedad.operation}
+                      onClick={() => handleRouter(propiedad.id)}
                     />
                   ))}
               </div>
