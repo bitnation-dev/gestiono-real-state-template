@@ -9,52 +9,36 @@ import InfoInput from "@/components/input";
 import { Container  } from "@bitnation-dev/components";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import Propiedades from "@/propertiesProp";
 
-interface Propiedades {
-    id: number;
-    type: string;
-    price: number;
-    bathrooms: number;
-    description: string;
-    bedrooms: number;
-    parking: number;
-    operation: string;
-    image: string;
-    location: string;
-    meters: number;
-    title: string;
-  }
 
-const Description: React.FC<Propiedades> = ({ price, location,meters, bathrooms, parking, bedrooms, description })=> {
+
+const Description: React.FC<Propiedades> = ()=> {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const totalImages = 10;
-    const router = useRouter();
-    const searchParams =new URLSearchParams(useSearchParams());
-    const id = searchParams.get('id');
     const [data, setData] = useState<Propiedades[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(true);
+    const totalImages = data[0]?.image.length || 0;
+
 
     useEffect(() => {
-        if (id) {
-            const fetchData = async () => {
-                try {
-                    const response = await fetch('/data/house.json');
-                    if (!response.ok) {
-                        throw new Error('Error al cargar las propiedades');
-                    }
-                    const result = await response.json();
-                    console.log('Respuesta del API:', result);
-                    const selectedProperty = result.properties.find((property: Propiedades) => property.id === Number(id));
-                    setData(selectedProperty ? [selectedProperty] : []);
-                } catch (error) {
-                    setError((error as Error).message);
-                }
-            };
+        const fetchData = async () => {
+          try {
+            const response = await fetch('/api/properties');
+            if (!response.ok) {
+              throw new Error('Error al cargar las propiedades');
+            }
+            const result = await response.json();
+            setData(result);
+            setLoading(false);
+          } catch (error) {
+            setError((error as Error).message);
+          }
+        };
+      
+        fetchData();
+      }, []); 
 
-            fetchData();
-        }
-    }, [id]);
 
     const handlePrevImage = () => {
         setCurrentImageIndex((prevIndex) => 
@@ -67,7 +51,8 @@ const Description: React.FC<Propiedades> = ({ price, location,meters, bathrooms,
             (prevIndex + 1) % totalImages
         );
     };
-    if (!data) return <div className="flex justify-center items-center h-screen text-2xl font-bold">Cargando...</div>;
+
+    if (loading) return <div className="flex justify-center items-center h-screen text-2xl font-bold text-black">Cargando...</div>;
     return (
         <>
         
@@ -114,18 +99,23 @@ const Description: React.FC<Propiedades> = ({ price, location,meters, bathrooms,
                                         <ArrowButtonRight />
                             </button>
                         </div>
-                        <div className=" overflow-x-auto">
-                            <div className="inline-flex space-x-1">
-                                {Array.from({ length: 10 }).map((_, index) => (
-                                        <Image key={index} src={data.length > 0 ? data[0].image : ""} alt={`Imagen ${currentImageIndex}`} fill />
-                                ))}
-                            </div>
+
+                        <div className="absolute inset-0">
+                            {Array.isArray(data[0]?.image) && data[0].image[currentImageIndex] && (
+                                <Image 
+                                    src={data[0].image[currentImageIndex]} 
+                                    alt={`Imagen ${currentImageIndex}`} 
+                                    fill
+                                    objectFit="cover"
+                                    objectPosition="center"
+                                />
+                            )}
                         </div>
                     </div>
                     <div className=" overflow-x-auto ">
                         <div className="flex space-x-1">
-                            {Array.from({ length: 10 }).map((_, index) => (
-                                <Image key={index} src={`/image/image${index + 1}.jpg`} alt={`Imagen ${index}`} width={150} height={150} />
+                            {Array.isArray(data[0]?.image) && data[0].image.map((image: string, index: number) => (
+                                <Image key={index} src={image} alt={`Imagen ${index}`} width={150} height={150} />
                             ))}
                             </div>
                         </div>

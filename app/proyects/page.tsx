@@ -6,21 +6,8 @@ import Filter from "@/components/sidebar";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Propiedades from "@/propertiesProp";
 
-interface Propiedades {
-  id: number;
-  type: string;
-  price: number;
-  bathrooms: number;
-  description: string;
-  bedrooms: number;
-  parking: number;
-  operation: string;
-  image: string;
-  location: string;
-  meters: number;
-  title: string;
-}
 
 const ITEMS_PER_PAGE = 12;
 
@@ -28,22 +15,20 @@ const Home = () => {
   const pathname = usePathname()
   const pageName = <span style={{ color: '#9C9C78' }}>Inmuebles</span>
   const [data, setData] = useState<Propiedades[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchLocation, setSearchLocation] = useState('');
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/data/house.json');
+        const response = await fetch('/api/properties');
         if (!response.ok) {
           throw new Error('Error al cargar las propiedades');
         }
         const result = await response.json();
-        console.log('Respuesta del API:', result);
-  
-        setData(result.properties);
+        setData(result);
       } catch (error) {
         setError((error as Error).message);
       }
@@ -52,9 +37,11 @@ const Home = () => {
     fetchData();
   }, []); 
 
-  const filteredData = data.filter((propiedad) =>
-    propiedad.location.toLowerCase().includes(searchLocation.toLowerCase())
-  );
+
+
+    const filteredData = data.filter((propiedad) =>
+      propiedad.title.toLowerCase().includes(searchLocation.toLowerCase())
+    );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -75,9 +62,6 @@ const Home = () => {
     router.push(`/description?id=${id}`)
 }
 
-
-
-  if (error) return <div className="text-black h-screen flex justify-center items-center">{error}</div>;
 
   return (
     < >
@@ -114,7 +98,7 @@ const Home = () => {
               {currentData.map((propiedad) => (
                     <Card
                       key={propiedad.id}
-                      image={propiedad.image}
+                      image={propiedad.image[0]}
                       price={propiedad.price}
                       location={propiedad.location}
                       bedrooms={propiedad.bedrooms}

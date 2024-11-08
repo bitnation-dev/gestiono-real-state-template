@@ -6,10 +6,17 @@ import { NextRequest, NextResponse } from 'next/server';
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
     const properties = await gestiono.getResources()
-    console.log(properties)
-    return NextResponse.json(properties); 
+    const data = properties.map((property: any) => ({
+      id: property.id,
+      title: property.name,
+      price: property.sellPrice,
+      location: property.location,
+      description: property.description,
+      image: property.multimedia.map((media: any) => media.url),
+    }));
+    return NextResponse.json(data); 
   } catch (error) {
-    console.error('Error al obtener las casas:', error.data);
+    console.error('Error al obtener las casas:', error);
     return NextResponse.json({ error: 'Error al obtener las casas' }, { status: 500 });
   }
 }

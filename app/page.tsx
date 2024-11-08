@@ -1,6 +1,5 @@
 'use client'
-
-import { Column, Container, Grid } from "@bitnation-dev/components";
+import { Container, Grid } from "@bitnation-dev/components";
 import { SearchIcon } from "@/components/icons";
 import Card from "@/components/cards";
 import Image from "next/image";
@@ -9,21 +8,7 @@ import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import InfoInput from "@/components/input";
-
-interface Propiedades {
-    id: number;
-    type: string;
-    price: number;
-    bathrooms: number;
-    description: string;
-    bedrooms: number;
-    parking: number;
-    operation: string;
-    image: string;
-    location: string;
-    meters: number;
-    title: string;
-  }
+import Propiedades from "@/propertiesProp";
 
 
 export default function Home() {
@@ -35,14 +20,12 @@ export default function Home() {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('/api');
+            const response = await fetch('/api/properties');
             if (!response.ok) {
               throw new Error('Error al cargar las propiedades');
             }
             const result = await response.json();
-            console.log('Respuesta del API:', result);
-      
-            setData(result.properties);
+            setData(result);
           } catch (error) {
             setError((error as Error).message);
           }
@@ -61,7 +44,6 @@ export default function Home() {
         router.push(`/description?id=${id}`)
     }
 
-    
 
 
     return (
@@ -81,10 +63,10 @@ export default function Home() {
             <Container>
                 <h1 className=" text-4xl font-bold text-[#3B4504] " >Proyectos Recomendados</h1>
                 <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
-                {data.slice(0, 4).map((propiedad) => (
+                {data ? data.map((propiedad) => (
                     <Card
                       key={propiedad.id}
-                      image={propiedad.image}
+                      image={propiedad.image[0]}
                       price={propiedad.price}
                       location={propiedad.location}
                       bedrooms={propiedad.bedrooms}
@@ -94,7 +76,7 @@ export default function Home() {
                       operation={propiedad.operation}
                       onClick={() => handleRouter(propiedad.id)}
                     />
-                  ))}
+                  )) : <p className="text-4xl font-bold text-[#3B4504] font-[Neco]">Cargando...</p>}
                 </Grid>
                 <div className="flex justify-end">
                     <Button1 text="Mas Proyectos Similares" icon onClick={() => router.push('/proyects')} />
