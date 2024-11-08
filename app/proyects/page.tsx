@@ -3,24 +3,106 @@ import { Grid, Container } from "@bitnation-dev/components";
 import Card from "@/components/cards";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
 import Filter from "@/components/sidebar";
+import { usePathname } from "next/navigation";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
+interface Propiedades {
+  id: number;
+  type: string;
+  price: number;
+  bathrooms: number;
+  description: string;
+  bedrooms: number;
+  parking: number;
+  operation: string;
+  image: string;
+  location: string;
+  meters: number;
+  title: string;
+}
+
+const ITEMS_PER_PAGE = 12;
 
 const Home = () => {
+  const pathname = usePathname()
+  const pageName = <span style={{ color: '#9C9C78' }}>Inmuebles</span>
+  const [data, setData] = useState<Propiedades[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchLocation, setSearchLocation] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/data/house.json');
+        if (!response.ok) {
+          throw new Error('Error al cargar las propiedades');
+        }
+        const result = await response.json();
+        console.log('Respuesta del API:', result);
+  
+        setData(result.properties);
+      } catch (error) {
+        setError((error as Error).message);
+      }
+    };
+  
+    fetchData();
+  }, []); 
+
+  const filteredData = data.filter((propiedad) =>
+    propiedad.location.toLowerCase().includes(searchLocation.toLowerCase())
+  );
+
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentData = filteredData.slice(startIndex, endIndex); 
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage > 0 && newPage <= Math.ceil(data.length / ITEMS_PER_PAGE)) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchLocation(e.target.value);
+    setCurrentPage(1); 
+  };
+
+  const handleRouter = (id: number) => {
+    router.push(`/description?id=${id}`)
+}
+
+
+
+  if (error) return <div className="text-black h-screen flex justify-center items-center">{error}</div>;
+
   return (
-    <Container className="relative bottom-10">
+    < >
       <Grid columns={{ xl: 1 }}>
-        <div className="flex items-center h-48 text-white text-center bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
-          <h1 className="text-4xl font-bold pt-10 pl-4">Búsqueda Por Ciudad</h1>
-        </div>
-        <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
-          <div className="flex space-x-4">
+        <Container className=" bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
+          <div className="flex flex-col  text-white ">
+            <div className="mb-4">
+            <p className="font-['poppins']">
+              Home &gt; {pathname === "/proyects" ? pageName : pathname}
+            </p>
+          </div>
+          <h1 className="text-4xl font-bold font-['poppins']">Inmuebles</h1>
+          </div>
+        </Container>
+
+          <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
+          <Container>
+            <div className="flex space-x-8">
             <div className="text-black">
-              <Filter />
+              <Filter results={filteredData.length}/>
             </div>
-            <div className="text-black ">
+            <div className="text-black w-screen ">
               <div className="flex space-x-4">
-                <input type="text" placeholder="Buscar por ciudad" className="w-[80%] h-10 px-4 py-2 border-2 border-gray-500 bg-white text-black" />
-                <div className="w-[20%] h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover: cursor-pointer">
+                <input onChange={handleSearchChange} type="text" placeholder="Buscar por ciudad" className="w-[80%] h-10 px-4 py-2 border-2 border-gray-500 bg-white text-black" />
+                <div className=" h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover: cursor-pointer">
                   <p>Ordenar Por Reciente </p>
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
@@ -29,28 +111,53 @@ const Home = () => {
               </div>
               <h1 className="text-2xl font-bold pt-4 pl-4">INMUEBLES DE SANTIAGO</h1>
               <div className="grid grid-cols-3 gap-y-8">
-                {Array.from({ length: 12 }).map((_, index) => (
-                  <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} />
-                ))}
+              {currentData.map((propiedad) => (
+                    <Card
+                      key={propiedad.id}
+                      image={propiedad.image}
+                      price={propiedad.price}
+                      location={propiedad.location}
+                      bedrooms={propiedad.bedrooms}
+                      bathrooms={propiedad.bathrooms}
+                      parking={propiedad.parking}
+                      meters={propiedad.meters} 
+                      operation={propiedad.operation}
+                      onClick={() => handleRouter(propiedad.id)}
+                    />
+                  ))}
               </div>
-
+              </div>    
             </div>
-          </div>
-          <div className="flex w-full justify-end py-20 ">
-            <div className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer">
-              <ArrowLeftIcon />
+            <div className="flex w-full justify-end py-20">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer"
+              >
+                <ArrowLeftIcon />
+              </button>
+              {[...Array(Math.ceil(data.length / ITEMS_PER_PAGE)).keys()].map((page) => (
+                <button
+                  key={page + 1}
+                  onClick={() => handlePageChange(page + 1)}
+                  className={`px-4 border hover:border-2 hover:border-black text-black ${
+                    currentPage === page + 1 ? 'font-bold' : ''
+                  }`}
+                >
+                  {page + 1}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer"
+              >
+                <ArrowRightIcon />
+              </button>
             </div>
-            {[1, 2, 3, 4].map((page) => (
-              <button key={page} className="px-4 border hover:border-2 hover:border-black text-black ">{page}</button>
-            ))}
-            <button className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer">
-              <ArrowRightIcon />
-            </button>
-          </div>
+          </Container>
         </Grid>
       </Grid>
-    </Container>
+    </>
   );
-}
+};
 
 export default Home;

@@ -1,13 +1,17 @@
+"use client"
+
 import { MainIcon } from "./components/icons";
 import { Container } from "@bitnation-dev/components";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
+    const router = useRouter()
     return (
         <Container className="bg-black">
             <footer className=" text-white p-4 text-center w-full relative">
                 <div className="grid grid-cols-3 gap-4">
                     <div className="col-span-1">
-                        <div className="flex pb-4">
+                    <div className="pb-4 cursor-pointer" onClick={() => router.push("/")}>
                             <MainIcon />
                         </div>
                         <p className="text-left">
