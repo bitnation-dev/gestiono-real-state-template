@@ -23,6 +23,6 @@
     },
     "target": "es2015"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "node_modules/@bitnation-dev/management/**/*",],
+  "exclude": ["build"]
 }
