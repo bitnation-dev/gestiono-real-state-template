@@ -1,12 +1,16 @@
+"use client"
+
+import { useRouter } from "next/navigation";
 import { MainIcon } from "./components/icons";
 import { Container } from "@bitnation-dev/components";
 
 
 const Header = () => {
+    const router = useRouter()
     return (
         <Container className=" bg-black !p-0 h-20"> 
             <div className="flex justify-between items-centertext-white h-full w-full !p-0">
-                <div className="pl-12">
+                <div className="pl-12 cursor-pointer" onClick={() => router.push("/")}>
                 <MainIcon />
             </div>
             <div className="flex space-x-4 pr-12">

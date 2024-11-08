@@ -6,24 +6,62 @@ import Card from "@/components/cards";
 import Image from "next/image";
 import CityCard from "@/components/cityCard";
 import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import InfoInput from "@/components/input";
 
+interface Propiedades {
+    id: number;
+    type: string;
+    price: number;
+    bathrooms: number;
+    description: string;
+    bedrooms: number;
+    parking: number;
+    operation: string;
+    image: string;
+    location: string;
+    meters: number;
+    title: string;
+  }
 
 
 export default function Home() {
-
+    const [data, setData] = useState<Propiedades[]>([]);
+    const [error, setError] = useState<string | null>(null);
     const [infoInput, setInfoInput] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('/data/house.json');
+            if (!response.ok) {
+              throw new Error('Error al cargar las propiedades');
+            }
+            const result = await response.json();
+            console.log('Respuesta del API:', result);
+      
+            setData(result.properties);
+          } catch (error) {
+            setError((error as Error).message);
+          }
+        };
+      
+        fetchData();
+      }, []); 
+
+    
 
     const handleInfoInput = () => {
         setInfoInput(!infoInput);
     }
 
-    const router = useRouter();
-    const handleRouter = () => {
-        router.push("/description")
+    const handleRouter = (id: number) => {
+        router.push(`/description?id=${id}`)
     }
+
+    
 
 
     return (
@@ -43,11 +81,20 @@ export default function Home() {
             <Container>
                 <h1 className=" text-4xl font-bold text-[#3B4504] " >Proyectos Recomendados</h1>
                 <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
-                    {Array.from({ length: 4 }).map((_, index) => (
-                        <Column key={(_ as { id: number })?.id || index} columns={{ md: { width: 2 }, }} >
-                            <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} onClick={handleRouter} />
-                        </Column>
-                    ))}
+                {data.slice(0, 4).map((propiedad) => (
+                    <Card
+                      key={propiedad.id}
+                      image={propiedad.image}
+                      price={propiedad.price}
+                      location={propiedad.location}
+                      bedrooms={propiedad.bedrooms}
+                      bathrooms={propiedad.bathrooms}
+                      parking={propiedad.parking}
+                      meters={propiedad.meters} 
+                      operation={propiedad.operation}
+                      onClick={() => handleRouter(propiedad.id)}
+                    />
+                  ))}
                 </Grid>
                 <div className="flex justify-end">
                     <Button1 text="Mas Proyectos Similares" icon onClick={() => router.push('/proyects')} />
@@ -86,7 +133,7 @@ export default function Home() {
             <Container>
                 <div className=" flex flex-col justify-center items-center space-y-4 py-24">
                     <h1 className="text-4xl font-bold text-[#3B4504] font-[Neco]">Búsqueda por Ciudad</h1>
-                    <p className="text-2xl text-[#757575] text-justify font-thin">
+                    <p className="text-2xl text-[#757575] text-justify font-[poppins] ">
                         Busca proyectos en las ciudades con mayor crecimiento del país
                     </p>
                     <CityCard />
