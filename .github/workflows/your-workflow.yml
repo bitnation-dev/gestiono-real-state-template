@@ -1,0 +1,7 @@
+ jobs:
+  build:
+    env:
+      NEXT_PUBLIC_GOOGLE_MAPS_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_KEY }}
+      GESTIONO_API_KEY: ${{ secrets.GESTIONO_API_KEY }}
+      GESTIONO_API_SECRET: ${{ secrets.GESTIONO_API_SECRET }}
+      GESTIONO_API_URL: ${{ secrets.GESTIONO_API_URL }}

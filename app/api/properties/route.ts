@@ -5,6 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const GET = async (req: NextRequest, res: NextResponse) => {
   try {
+    if (!process.env.GESTIONO_API_URL) {
+      throw new Error('GESTIONO_API_URL is not defined');
+    }
     const properties = await gestiono.getResources() 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = properties.map((property: any) => ({
