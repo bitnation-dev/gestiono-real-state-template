@@ -5,7 +5,7 @@ import Card from "@/components/cards";
 import Image from "next/image";
 import CityCard from "@/components/cityCard";
 import { Button1, ButtonMail, ButtonWhatsapp } from "@/components/button";
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import InfoInput from "@/components/input";
 import Propiedades from "@/propertiesProp";
@@ -13,8 +13,9 @@ import Propiedades from "@/propertiesProp";
 
 export default function Home() {
     const [data, setData] = useState<Propiedades[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [, setError] = useState<string | null>(null);
     const [infoInput, setInfoInput] = useState(false);
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -22,10 +23,12 @@ export default function Home() {
           try {
             const response = await fetch('/api/properties');
             if (!response.ok) {
-              throw new Error('Error al cargar las propiedades');
+                throw new Error('Error al cargar las propiedades');
             }
             const result = await response.json();
+            console.log(result, "result" )
             setData(result);
+            setLoading(false);
           } catch (error) {
             setError((error as Error).message);
           }
@@ -44,7 +47,13 @@ export default function Home() {
         router.push(`/description?id=${id}`)
     }
 
+    useEffect(() => {
+        console.log(loading);
+    }, [loading]);
 
+    if (loading) {
+        return <p className="text-4xl font-bold text-[#3B4504] h-[50vh] w-full flex justify-center items-center " >Cargando...</p>
+    }
 
     return (
         <>
@@ -63,20 +72,20 @@ export default function Home() {
             <Container>
                 <h1 className=" text-4xl font-bold text-[#3B4504] " >Proyectos Recomendados</h1>
                 <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
-                {data ? data.map((propiedad) => (
+                {data.map((propiedad) => (
                     <Card
-                      key={propiedad.id}
-                      image={propiedad.image[0]}
-                      price={propiedad.price}
-                      location={propiedad.location}
-                      bedrooms={propiedad.bedrooms}
-                      bathrooms={propiedad.bathrooms}
-                      parking={propiedad.parking}
-                      meters={propiedad.meters} 
-                      operation={propiedad.operation}
+                      key={propiedad?.id}
+                      multimedia={ propiedad?.image[0]}
+                      price={propiedad?.price}
+                      location={propiedad?.location}
+                      bedrooms={propiedad?.bedrooms}
+                      bathrooms={propiedad?.bathrooms}
+                      parking={propiedad?.parking}
+                      meters={propiedad?.meters} 
+                      operation={propiedad?.operation}
                       onClick={() => handleRouter(propiedad.id)}
-                    />
-                  )) : <p className="text-4xl font-bold text-[#3B4504] font-[Neco]">Cargando...</p>}
+                        />
+                    ))}
                 </Grid>
                 <div className="flex justify-end">
                     <Button1 text="Mas Proyectos Similares" icon onClick={() => router.push('/proyects')} />

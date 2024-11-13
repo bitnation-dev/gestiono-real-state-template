@@ -1,3 +1,4 @@
+
 interface Propiedades {
     id: number;
     type: string;
@@ -7,10 +8,12 @@ interface Propiedades {
     bedrooms: number;
     parking: number;
     operation: string;
-    image: string;
-    location: string;
     meters: number;
     title: string;
-  }
+    name: string;
+    sellPrice: number;
+    location: string;
+    image: string;
+}
 
 export default Propiedades;

@@ -13,10 +13,10 @@ import Propiedades from "@/propertiesProp";
 
 
 
-const Description: React.FC<Propiedades> = ()=> {
+export default function Description() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [data, setData] = useState<Propiedades[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    const [, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const totalImages = data[0]?.image.length || 0;
 
@@ -91,7 +91,7 @@ const Description: React.FC<Propiedades> = ()=> {
                     <div className="flex ">
                         <div className="flex flex-col space-y-2 " >
                             <div className="h-[50vh] flex justify-center items-center relative">
-                                <div className="flex px-4 w-full justify-between">
+                                <div className="flex px-4 w-full justify-between" >
                                     <button className="z-10" onClick={handlePrevImage}>
                                         <ArrowButtonLeft />
                                     </button>
@@ -99,27 +99,27 @@ const Description: React.FC<Propiedades> = ()=> {
                                         <ArrowButtonRight />
                             </button>
                         </div>
-
-                        <div className="absolute inset-0">
-                            {Array.isArray(data[0]?.image) && data[0].image[currentImageIndex] && (
-                                <Image 
-                                    src={data[0].image[currentImageIndex]} 
-                                    alt={`Imagen ${currentImageIndex}`} 
-                                    fill
-                                    objectFit="cover"
-                                    objectPosition="center"
-                                />
-                            )}
-                        </div>
+                                <div className="absolute inset-0">
+                                {Array.isArray(data[0]?.image) && data[0].image[currentImageIndex] && (
+                                    <Image 
+                                        src={data[0].image[currentImageIndex]} 
+                                        alt={`Imagen ${currentImageIndex}`} 
+                                        fill
+                                        objectFit="cover"
+                                        objectPosition="center"
+                                    />
+                                )}
+                            </div>
                     </div>
+                    
                     <div className=" overflow-x-auto ">
                         <div className="flex space-x-1">
                             {Array.isArray(data[0]?.image) && data[0].image.map((image: string, index: number) => (
-                                <Image key={index} src={image} alt={`Imagen ${index}`} width={150} height={150} />
+                                <Image key={index} src={image} alt={`Imagen ${index}`} width={150} height={150} className="aspect-square object-cover"/>
                             ))}
                             </div>
                         </div>
-                    </div>
+                </div>
                         <div className="flex flex-col space-y-2 px-4 ">
                         <h1 className="text-2xl font-bold text-black">CONTACTOS</h1>
                         <div className="flex items-center space-x-4">
@@ -179,8 +179,8 @@ const Description: React.FC<Propiedades> = ()=> {
                         <h1 className="text-black text-3xl font-bold">Proyectos similares</h1>
                         <div className="overflow-x-auto h-[40vh]">
                             <div className="inline-flex space-x-1 ">
-                                {Array.from({ length: 3 }).map((_, index) => (
-                                    <Card key={index} image="/imagen.png" price={180000} location="Santo Domingo" bedrooms={4} bathrooms={4} parking={6} meters={1200} operation="comprar" />
+                                {Array.from(data).map((propiedad, index) => (
+                                    <Card key={index} multimedia={propiedad.image[0]} price={propiedad.price} location={propiedad.location} bedrooms={propiedad.bedrooms} bathrooms={propiedad.bathrooms} parking={propiedad.parking} meters={propiedad.meters} operation={propiedad.operation} />
                                 ))}
                             </div>
                         </div>
@@ -191,4 +191,3 @@ const Description: React.FC<Propiedades> = ()=> {
     )
 }
 
-export default Description;

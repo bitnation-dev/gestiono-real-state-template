@@ -11,13 +11,14 @@ import Propiedades from "@/propertiesProp";
 
 const ITEMS_PER_PAGE = 12;
 
-const Home = () => {
+export default function Proyects() {
   const pathname = usePathname()
   const pageName = <span style={{ color: '#9C9C78' }}>Inmuebles</span>
   const [data, setData] = useState<Propiedades[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchLocation, setSearchLocation] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ const Home = () => {
         }
         const result = await response.json();
         setData(result);
+        setLoading(false);
       } catch (error) {
         setError((error as Error).message);
       }
@@ -62,7 +64,9 @@ const Home = () => {
     router.push(`/description?id=${id}`)
 }
 
-
+if (loading) {
+  return <p className="text-4xl font-bold text-[#3B4504] h-[50vh] w-full flex justify-center items-center " >Cargando...</p>
+}
   return (
     < >
       <Grid columns={{ xl: 1 }}>
@@ -97,15 +101,15 @@ const Home = () => {
               <div className="grid grid-cols-3 gap-y-8">
               {currentData.map((propiedad) => (
                     <Card
-                      key={propiedad.id}
-                      image={propiedad.image[0]}
-                      price={propiedad.price}
-                      location={propiedad.location}
-                      bedrooms={propiedad.bedrooms}
-                      bathrooms={propiedad.bathrooms}
-                      parking={propiedad.parking}
+                      key={propiedad?.id}
+                      multimedia={propiedad?.image[0]}
+                      price={propiedad?.price}
+                      location={propiedad?.location}
+                      bedrooms={propiedad?.bedrooms}
+                      bathrooms={propiedad?.bathrooms}
+                      parking={propiedad?.parking}
                       meters={propiedad.meters} 
-                      operation={propiedad.operation}
+                      operation={propiedad?.operation}
                       onClick={() => handleRouter(propiedad.id)}
                     />
                   ))}
@@ -143,5 +147,3 @@ const Home = () => {
     </>
   );
 };
-
-export default Home;
