@@ -1,7 +1,0 @@
-name: Build and Deploy
-jobs:
-  build:
-    env:
-      GESTIONO_API_KEY: ${{ secrets.GESTIONO_API_KEY }}
-      GESTIONO_API_SECRET: ${{ secrets.GESTIONO_API_SECRET }}
-      GESTIONO_API_URL: ${{ secrets.GESTIONO_API_URL }}
