@@ -47,13 +47,7 @@ export default function Home() {
         router.push(`/description?id=${id}`)
     }
 
-    useEffect(() => {
-        console.log(loading);
-    }, [loading]);
 
-    if (loading) {
-        return <p className="text-4xl font-bold text-[#3B4504] h-[50vh] w-full flex justify-center items-center " >Cargando...</p>
-    }
 
     return (
         <>
@@ -72,20 +66,33 @@ export default function Home() {
             <Container>
                 <h1 className=" text-4xl font-bold text-[#3B4504] " >Proyectos Recomendados</h1>
                 <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
-                {data.map((propiedad) => (
-                    <Card
-                      key={propiedad?.id}
-                      multimedia={ propiedad?.image[0]}
-                      price={propiedad?.price}
-                      location={propiedad?.location}
-                      bedrooms={propiedad?.bedrooms}
-                      bathrooms={propiedad?.bathrooms}
-                      parking={propiedad?.parking}
-                      meters={propiedad?.meters} 
-                      operation={propiedad?.operation}
-                      onClick={() => handleRouter(propiedad.id)}
+                    
+                {loading ? (
+                    <div className="flex flex-col gap-4">
+                        {Array.from({ length: 1 }).map((_, index) => (
+                            <div key={index} className="animate-pulse flex flex-col space-y-4 p-4 border ">
+                                <div className="bg-gray-300 h-72 w-[95%] "></div>
+                                <div className="bg-gray-300 h-6 w-3/4"></div>
+                                <div className="bg-gray-300 h-6 w-[95%]  "></div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    data.map((propiedad) => (
+                        <Card
+                            key={propiedad?.id}
+                            multimedia={propiedad?.image[0]}
+                            price={propiedad?.price}
+                            location={propiedad?.location}
+                            bedrooms={propiedad?.bedrooms}
+                            bathrooms={propiedad?.bathrooms}
+                            parking={propiedad?.parking}
+                            meters={propiedad?.meters}
+                            operation={propiedad?.operation}
+                            onClick={() => handleRouter(propiedad.id)}
                         />
-                    ))}
+                    ))
+                )}
                 </Grid>
                 <div className="flex justify-end">
                     <Button1 text="Mas Proyectos Similares" icon onClick={() => router.push('/proyects')} />

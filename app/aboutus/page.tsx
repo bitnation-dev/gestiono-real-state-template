@@ -83,11 +83,11 @@ const AboutUs = () => {
                             </div>
                             <div className="w-1/2">
                             <div className="mapContainer">
-                        <iframe
-                                width="600"
-                                height="465"
-                                style={{ border: 0 }}
-                                referrerPolicy="no-referrer-when-downgrade"
+                                <iframe
+                                    width="600"
+                                    height="465"
+                                    style={{ border: 0 }}
+                                    referrerPolicy="no-referrer-when-downgrade"
                                 src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
                                     key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || '', 
                                     q: "Santiago",

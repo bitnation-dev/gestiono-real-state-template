@@ -64,9 +64,7 @@ export default function Proyects() {
     router.push(`/description?id=${id}`)
 }
 
-if (loading) {
-  return <p className="text-4xl font-bold text-[#3B4504] h-[50vh] w-full flex justify-center items-center " >Cargando...</p>
-}
+
   return (
     < >
       <Grid columns={{ xl: 1 }}>
@@ -99,20 +97,33 @@ if (loading) {
               </div>
               <h1 className="text-2xl font-bold pt-4 pl-4">INMUEBLES DE SANTIAGO</h1>
               <div className="grid grid-cols-3 gap-y-8">
-              {currentData.map((propiedad) => (
-                    <Card
-                      key={propiedad?.id}
-                      multimedia={propiedad?.image[0]}
-                      price={propiedad?.price}
-                      location={propiedad?.location}
-                      bedrooms={propiedad?.bedrooms}
-                      bathrooms={propiedad?.bathrooms}
-                      parking={propiedad?.parking}
-                      meters={propiedad.meters} 
-                      operation={propiedad?.operation}
-                      onClick={() => handleRouter(propiedad.id)}
-                    />
-                  ))}
+                    
+              {loading ? (
+                    <div className="flex flex-col gap-4">
+                        {Array.from({ length: 1 }).map((_, index) => (
+                            <div key={index} className="animate-pulse flex flex-col space-y-4 p-4 border ">
+                                <div className="bg-gray-300 h-72 w-[95%] "></div>
+                                <div className="bg-gray-300 h-6 w-3/4"></div>
+                                <div className="bg-gray-300 h-6 w-[95%]  "></div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    data.map((propiedad) => (
+                        <Card
+                            key={propiedad?.id}
+                            multimedia={propiedad?.image[0]}
+                            price={propiedad?.price}
+                            location={propiedad?.location}
+                            bedrooms={propiedad?.bedrooms}
+                            bathrooms={propiedad?.bathrooms}
+                            parking={propiedad?.parking}
+                            meters={propiedad?.meters}
+                            operation={propiedad?.operation}
+                            onClick={() => handleRouter(propiedad.id)}
+                        />
+                    ))
+                )}
               </div>
               </div>    
             </div>
