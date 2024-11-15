@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['api.gestiono.app'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.gestiono.app',
+        pathname: '/**',
+      },
+    ],
   },
 }
 
