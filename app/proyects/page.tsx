@@ -109,7 +109,7 @@ export default function Proyects() {
                         ))}
                     </div>
                 ) : (
-                    data.map((propiedad) => (
+                     currentData.map((propiedad) => (
                         <Card
                             key={propiedad?.id}
                             multimedia={propiedad?.image[0]}
