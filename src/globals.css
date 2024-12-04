@@ -38,3 +38,8 @@ body {
       scrollbar-width: none;  /* Firefox */
 }
 }
+
+.overflow-hidden {
+  overflow: hidden;
+  height: 100vh;
+}

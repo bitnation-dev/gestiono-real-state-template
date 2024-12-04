@@ -111,7 +111,7 @@ export default function Proyects() {
                     onChange={handleSearchChange} 
                     type="text" 
                     placeholder="Buscar por ciudad" 
-                    className="w-full h-10 px-4 py-2 border-2 border-gray-500 bg-white text-black" 
+                    className="w-full h-10 px-2 py-2 border-2 border-gray-500 bg-white text-black" 
                   />
                 </div>
 

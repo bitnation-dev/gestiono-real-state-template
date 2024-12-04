@@ -4,12 +4,13 @@ import { ButtonMail, ButtonWhatsapp } from "@/components/button";
 import CalcPrestamo from "@/components/calcPrestamo";
 import Card from "@/components/cards";
 import { formatted } from "@/components/formatted";
-import { ArrowButtonLeft, ArrowButtonRight, BathIcon, BedIcon, ParkingIcon } from "@/components/icons";
+import { ArrowButtonLeft, ArrowButtonRight, BathIcon, BedIcon, ParkingIcon, ProfileIcon } from "@/components/icons";
 import InfoInput from "@/components/input";
 import { Container } from "@bitnation-dev/components";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import Propiedades from "@/propertiesProp";
+import Contactanos from "@/components/contactanos";
 
 
 
@@ -18,6 +19,7 @@ export default function Description() {
     const [data, setData] = useState<Propiedades[]>([]);
     const [, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const totalImages = data[0]?.image.length || 0;
 
 
@@ -52,16 +54,29 @@ export default function Description() {
         );
     };
 
+    useEffect(() => {
+        if (isModalOpen) {
+            document.body.classList.add('overflow-hidden');
+        } else {
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Cleanup cuando el componente se desmonte
+        return () => {
+            document.body.classList.remove('overflow-hidden');
+        };
+    }, [isModalOpen]);
+
     return (
         <>
             <Container>
-                <div className="">
-                    <h1 className="text-[#0E87A2] text-3xl">
+                <div className="px-4 md:px-0">
+                    <h1 className="text-[#0E87A2] text-2xl md:text-3xl">
                         {data.length > 0 ? data[0].location : "Ubicación no disponible"}
                     </h1>
                 </div>
-                <div className=" flex space-x-2 items-center space-x-4">
-                    <h1 className="text-2xl text-[#3B4504] font-bold ">{"US$" + formatted(data.length > 0 ? data[0].price : 0)}</h1>
+                <div className="flex flex-wrap gap-4 items-center px-4 md:px-0">
+                    <h1 className="text-xl md:text-2xl text-[#3B4504] font-bold">{"US$" + formatted(data.length > 0 ? data[0].price : 0)}</h1>
                     <div className="flex items-center space-x-2">
                         <BathIcon />
                         <p className="text-sm text-gray-500">{data.length > 0 ? data[0].bathrooms : "0 Baths"} </p>
@@ -78,16 +93,16 @@ export default function Description() {
                         <p className="text-sm text-black pt-2"> {data.length > 0 ? data[0].meters : "0 "} m2 </p>
                     </div>
                 </div>
-                <div className="flex border-t border-b border-gray-300 items-center mb-8 py-2">
-                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Descripcion </button>
-                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Ubicacion </button>
-                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Calculo de Prestamo </button>
-                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold"> Proyectos Similares </button>
+                <div className="flex border-t border-b border-gray-300 items-center mb-8 py-2 overflow-x-auto no-scrollbar">
+                    <button className="text-sm md:text-base text-black p-2 md:p-4 hover:text-white hover:bg-black font-bold whitespace-nowrap">Descripcion</button>
+                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold whitespace-nowrap"> Ubicacion </button>
+                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold whitespace-nowrap"> Calculo de Prestamo </button>
+                    <button className="text-black p-4 hover:text-white hover:bg-black font-bold whitespace-nowrap"> Proyectos Similares </button>
                 </div>
             </Container>
             <Container>
-                <div className="flex ">
-                    <div className="flex flex-col space-y-2  w-full">
+                <div className="flex flex-col lg:flex-row">
+                    <div className="flex flex-col space-y-2 w-full lg:w-3/4">
                         <div className="h-[50vh] flex justify-center items-center relative">
                             <div className="flex px-4 w-full justify-between">
                                 <button className="z-10" onClick={handlePrevImage}>
@@ -114,7 +129,7 @@ export default function Description() {
                             </div>
                         </div>
 
-                        <div className="overflow-x-auto">
+                        <div className="overflow-x-auto no-scrollbar">
                             <div className="flex space-x-1">
                                 {loading ? (
                                     <div className="flex space-x-1">
@@ -130,76 +145,82 @@ export default function Description() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col space-y-2 px-4 ">
-                        <h1 className="text-2xl font-bold text-black">CONTACTOS</h1>
-                        <div className="flex items-center space-x-4">
-                            <div className="w-24 h-24 rounded-full border-2 border-black overflow-hidden pt-2">
-                                <Image
-                                    src="/imagenP.png"
-                                    alt="Foto de perfil de Miguel A. Nova"
-                                    width={90}
-                                    height={90}
-                                    objectFit="cover"
-                                    objectPosition="top"
-                                />
-                            </div>
-                            <div>
-                                <h2 className="text-2xl font-bold text-black">
-                                    Miguel A. Nova
-                                </h2>
-                                <p className="text-sm text-black">
-                                    Broker Inmobiliario
-                                </p>
-                                <p className="text-sm text-blue-500 cursor-pointer">
-                                    a.nova@emira.com.do
-                                </p>
-                            </div>
-                        </div>
-                        <InfoInput />
-                        <div className="w-full space-y-2 flex flex-col justify-center items-center">
-                            <ButtonMail text="Contáctanos" width={80} />
-                            <ButtonWhatsapp text="Contáctanos" width={80} />
-                        </div>
+                    <div className="hidden lg:block">
+                        <Contactanos />
                     </div>
                 </div>
             </Container>
             <Container>
-                <div className="pb-6">
-                    <h1 className="text-black font-bold text-4xl"> Descripción</h1>
-                    <p className="text-black">{data.length > 0 ? data[0].description : "No hay descripción disponible"}</p>
+                <div 
+                    className="fixed bottom-4 right-4 z-50 lg:hidden cursor-pointer"
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    <ProfileIcon />
                 </div>
-                <div>
-                    <h1 className="text-black font-bold text-4xl">Ubicacion</h1>
-                    <div className="mapContainer">
-                    {loading ? (
-                                    <div className="flex space-x-1">
-                                        {Array.from({ length: 1 }).map((_, index) => (
-                                            <div key={index} className="w-[500px] h-[50vh] bg-gray-200 animate-pulse"></div>
-                                        ))}
-                                    </div>
-                                ) : (
-                            <iframe
-                                width="600"
-                            height="500"
-                            style={{ border: 0 }}
-                            referrerPolicy="no-referrer-when-downgrade"
-                            src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
-                                key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || '',
-                                q: data.length > 0 ? data[0].location : "",
-                            })}`}
+                {isModalOpen && (
+                    <div 
+                        className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-hidden"
+                        onClick={() => setIsModalOpen(false)}
+                    >
+                        <div 
+                            className="bg-white rounded-lg w-full max-w-md relative overflow-y-auto max-h-[90vh]"
+                            onClick={(e) => e.stopPropagation()}
                         >
-                            </iframe>
-                        )}
+                            <button 
+                                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                onClick={() => setIsModalOpen(false)}
+                            >
+                                ✕
+                            </button>
+                            <Contactanos />
+                        </div>
                     </div>
-                </div>
-                <CalcPrestamo />
-                <div>
-                    <h1 className="text-black text-3xl font-bold">Proyectos similares</h1>
-                    <div className="overflow-x-auto h-[40vh]">
-                        <div className="inline-flex space-x-1 ">
-                            {Array.from(data).map((propiedad, index) => (
-                                <Card key={index} multimedia={propiedad.image[0]} price={propiedad.price} location={propiedad.location} bedrooms={propiedad.bedrooms} bathrooms={propiedad.bathrooms} parking={propiedad.parking} meters={propiedad.meters} operation={propiedad.operation} />
-                            ))}
+                )}
+                <div className="px-4 md:px-0">
+                    <div className="pb-6">
+                        <h1 className="text-black font-bold text-3xl md:text-4xl">Descripción</h1>
+                        <p className="text-black">{data.length > 0 ? data[0].description : "No hay descripción disponible"}</p>
+                    </div>
+                    <div>
+                        <h1 className="text-black font-bold text-3xl md:text-4xl">Ubicacion</h1>
+                        <div className="mapContainer w-full">
+                            {loading ? (
+                                <div className="w-full h-[50vh] bg-gray-200 animate-pulse"/>
+                            ) : (
+                                <iframe
+                                    width="100%"
+                                    height="500"
+                                    style={{ border: 0 }}
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    src={`https://www.google.com/maps/embed/v1/place?${new URLSearchParams({
+                                        key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || '',
+                                        q: data.length > 0 ? data[0].location : "",
+                                    })}`}
+                                >
+                                </iframe>
+                            )}
+                        </div>
+                    </div>
+                    <CalcPrestamo />
+                    <div>
+                        <h1 className="text-black text-2xl md:text-3xl font-bold">Proyectos similares</h1>
+                        <div className="overflow-x-auto">
+                            <div className="inline-flex space-x-4 py-4">
+                                {Array.from(data).map((propiedad, index) => (
+                                    <div key={index} className="min-w-[280px] md:min-w-[320px]">
+                                        <Card 
+                                            multimedia={propiedad.image[0]}
+                                            price={propiedad.price}
+                                            location={propiedad.location}
+                                            bedrooms={propiedad.bedrooms}
+                                            bathrooms={propiedad.bathrooms}
+                                            parking={propiedad.parking}
+                                            meters={propiedad.meters}
+                                            operation={propiedad.operation}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

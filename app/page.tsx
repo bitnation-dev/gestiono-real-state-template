@@ -72,7 +72,7 @@ export default function Home() {
                 </div>
             </Container>
             <Container>
-                <h1 className=" text-4xl font-bold text-[#3B4504] " >Proyectos Recomendados</h1>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3B4504] text-center sm:text-left" >Proyectos Recomendados</h1>
                 <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
                     
                 {loading ? (
@@ -137,7 +137,7 @@ export default function Home() {
                                         Elimina dudas o busca donde invertir <br /> con la asistencia de un experto en <br />
                                         inversiones inmobiliarias
                                     </p>
-                                    <div className="flex justify-center items-center space-x-4">
+                                    <div className="flex flex-wrap lg:flex-row space-y-2 sm:space-y-0 justify-center items-center gap-4">
                                         <ButtonMail text="Contáctanos" onClick={handleInfoInput} />
                                         <ButtonWhatsapp text="Contáctanos" />
                                     </div>
