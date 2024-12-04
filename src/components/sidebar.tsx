@@ -4,17 +4,29 @@ import { useState } from 'react'
 import { SideFilter, SideFilterMoney } from './sidefilter'
 type FilterProps = {
     results?: number;
-
+    showMobileFilter?: boolean;
 }
 
-const Filter = ({ results }: FilterProps) => {
+const Filter = ({ results, showMobileFilter }: FilterProps) => {
     const [onFilter, setOnFilter] = useState(true)
 
     const handleColor = () => {
         setOnFilter(!onFilter)
     }
+    
     return (
-        <div className="w-full hidden lg:block xl:block">
+        <div className={`
+            fixed md:relative top-0 left-0 h-full 
+            w-2/4 md:w-full 
+            bg-white 
+            transform transition-transform duration-300 ease-in-out
+            ${showMobileFilter ? 'translate-x-0' : '-translate-x-full'} 
+            md:translate-x-0
+            z-50
+            overflow-y-auto
+            p-4
+            shadow-lg md:shadow-none no-scrollbar
+        `}>
             <div className="flex pb-8">
                 <p className="text-black font-bold">{results} Resultados</p>
             </div>
@@ -33,7 +45,7 @@ const Filter = ({ results }: FilterProps) => {
                 </button>
             </div>
             <SideFilter title='Tipo de Inmueble' options={["Apartamento", "Casas", "Condominios", "Eco Amigable", "Estancia Corta", "Turisticos", "Solares", "Torres", "Oficinas"]}/>
-            <div className='h-32 flex flex-col pt-4 '>
+            <div className='h-32 flex flex-col pt-4'>
                 <SideFilterMoney title='Desde' options={["100000", "200000", "300000", "400000", "500000"]}/>
                 <SideFilterMoney title='Hasta' options={["100000", "200000", "300000", "400000", "500000"]}/>
             </div>

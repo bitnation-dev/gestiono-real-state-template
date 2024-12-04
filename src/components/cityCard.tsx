@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const cityBackgrounds = [
@@ -10,7 +9,7 @@ const cityBackgrounds = [
 
 const CityCard = () => {
     return (
-        <div className="flex justify-center items-center space-x-4">
+        <div className="flex flex-col md:flex-row lg:justify-center lg:items-center space-y-4 md:space-y-0 md:space-x-4">
             {cityBackgrounds.map((background, index) => (
                 <div 
                     key={index} 
