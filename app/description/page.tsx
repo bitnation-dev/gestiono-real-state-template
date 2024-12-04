@@ -1,11 +1,9 @@
 "use client"
 
-import { ButtonMail, ButtonWhatsapp } from "@/components/button";
 import CalcPrestamo from "@/components/calcPrestamo";
 import Card from "@/components/cards";
 import { formatted } from "@/components/formatted";
 import { ArrowButtonLeft, ArrowButtonRight, BathIcon, BedIcon, ParkingIcon, ProfileIcon } from "@/components/icons";
-import InfoInput from "@/components/input";
 import { Container } from "@bitnation-dev/components";
 import Image from "next/image";
 import { useState, useEffect } from "react";
