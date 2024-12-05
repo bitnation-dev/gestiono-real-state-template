@@ -64,13 +64,14 @@ export default function Description() {
             document.body.classList.remove('overflow-hidden');
         };
     }, [isModalOpen]);
+    console.log(data)
 
     return (
         <>
             <Container>
-                <div className="px-4 md:px-0">
-                    <h1 className="text-[#0E87A2] text-2xl md:text-3xl">
-                        {data.length > 0 ? data[0].location : "Ubicación no disponible"}
+                <div className="h-10 w-full">
+                    <h1 className="text-[#0E87A2] text-2xl">
+                        {data.length > 0 ? data[0].title : "Ubicación no disponible"}
                     </h1>
                 </div>
                 <div className="flex flex-wrap gap-4 items-center px-4 md:px-0">

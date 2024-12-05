@@ -51,7 +51,7 @@ export default function Home() {
 
     return (
         <>
-            <Container style={{ backgroundImage: "url('/imageCover.png')" }} className="bg-cover">
+            <Container style={{ backgroundImage: "url('/imageCover.png')" }} className="bg-cover ">
                 <div className="h-[65vh] bg-cover bg-no-repeat bottom-10 relative text-center justify-center flex flex-col space-y-4 px-4">
                     <h1 className="text-white text-center text-4xl md:text-6xl font-bold uppercase">
                         Las mejores Inversiones <br /> Inmobiliarias
@@ -73,7 +73,7 @@ export default function Home() {
             </Container>
             <Container>
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3B4504] text-center sm:text-left" >Proyectos Recomendados</h1>
-                <Grid columns={{ xl: 4, md: 2, sm: 1, }}>
+                <Grid columns={{ xl: 4, md: 1, sm: 1, }}>
                     
                 {loading ? (
                     <div className="flex flex-col gap-4">
@@ -116,14 +116,14 @@ export default function Home() {
                                 width={425} 
                                 height={425} 
                                 quality={100}
-                                className="w-full max-w-[425px] h-auto" 
+                                className="w-full max-w-[425px] h-auto " 
                             />
                         </div>
                         <div className="flex justify-center items-center px-4">
                             {infoInput ? (
-                                <div className="w-full">
+                                <div className="w-full py-8">
                                     <InfoInput />
-                                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 relative bottom-8">
+                                    <div className="flex space-x-4">
                                         <ButtonMail text='Contactanos' />
                                         <ButtonWhatsapp text="Contáctanos" />
                                     </div>
@@ -137,7 +137,7 @@ export default function Home() {
                                         Elimina dudas o busca donde invertir <br /> con la asistencia de un experto en <br />
                                         inversiones inmobiliarias
                                     </p>
-                                    <div className="flex flex-wrap lg:flex-row space-y-2 sm:space-y-0 justify-center items-center gap-4">
+                                    <div className="flex space-x-4 py-4">
                                         <ButtonMail text="Contáctanos" onClick={handleInfoInput} />
                                         <ButtonWhatsapp text="Contáctanos" />
                                     </div>

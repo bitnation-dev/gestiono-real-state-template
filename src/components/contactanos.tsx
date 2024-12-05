@@ -30,7 +30,7 @@ const Contactanos = () => {
                 </div>
             </div>
             <InfoInput />
-            <div className="w-full space-y-2 flex flex-col justify-center items-center">
+            <div className="w-full space-x-2 flex justify-center items-center">
                 <ButtonMail text="Contáctanos" width={80} />
                 <ButtonWhatsapp text="Contáctanos" width={80} />
             </div>

@@ -14,40 +14,43 @@ import { usePathname } from "next/navigation"
 const AboutUs = () => {
 
     const pathname = usePathname()
-    const [showMap, setShowMap] = useState(false)
-    const pageName = <span style={{ color: '#9C9C78' }}>Nosotros</span>
+    const pageName = <span style={{ color: '#9C9C78' }}>NOSOTROS</span>
+
+    const handleMapClick = () => {
+        const address = "Santiago" // Usa la misma ubicación que en el iframe
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`
+        window.open(mapsUrl, '_blank')
+    }
+
     return (
         <>
         <Container>
-            <div className="">
                 <p className="text-black font-['poppins'] font-light">
                     Home &gt; {pathname === "/aboutus" ? pageName : pathname}
                 </p>
-            </div>
             <div>
-                <h1 className="text-4xl text-black font-bold font-['Poppins'] ">
-                    Nosotros
+                <h1 className="text-3xl text-black font-bold font-['Poppins'] py-4">
+                    NOSOTROS
                 </h1>
             </div>
             </Container>
-                <Container className="bg-cover"  style={{ backgroundImage: "url('/imageCover.png')" }}>
-                    <div className="min-h-80 flex flex-col md:flex-row justify-between" >
-                        <div className="flex flex-col justify-center p-6 md:pl-10">
-                            <h1 className="text-[#9C9C78] text-2xl md:text-3xl font-bold uppercase pb-4 md:pb-6">¿Quienes Somos?</h1>
-                            <p className="text-sm md:text-base">
+                <Container className="bg-cover mb-10"  style={{ backgroundImage: "url('/imageCover.png')" }}>
+                    <div className="h-[90dvh] flex flex-col  justify-between" >
+                        <div className="flex flex-col  p-2 ">
+                            <h1 className="text-[#9C9C78] text-2xl font-bold uppercase pb-4 ">¿Quienes Somos?</h1>
+                            <p className="text-md font-bold">
                                 Emira Group es una empresa inmobiliaria dedicada a ofrecer soluciones excepcionales en la compra, venta y alquiler de propiedades.
                             </p>
                             <div className="mt-4">
                                 <Button1 text="Hablemos" icon />
                             </div>
                         </div>
-                        <div className="flex items-end justify-end md:pb-10">
+                        <div className="flex items-end justify-end">
                             <MainIconBig />
                         </div>
                     </div>
                 </Container>
-                <Container>
-
+                <Container className="mb-10">
                 <Column columns={{ xl: { width: 5 }, md: { width: 1 }, sm: { width: 1 } }}>
                     <div className="flex justify-center py-4">
                         <h1 className="text-black text-2xl uppercase font-bold">Nuestros Clientes Dicen:</h1>
@@ -59,7 +62,7 @@ const AboutUs = () => {
                     </div>
                 </Column>
                 </Container>
-                <Container>
+                <Container className="mb-10">
                 <Column columns={{ xl: { width: 5 }, md: { width: 1 }, }}>
                     <div className="flex flex-col lg:items-center lg:justify-center">
                         <h1 className="text-4xl text-black font-bold pb-4">
@@ -73,7 +76,7 @@ const AboutUs = () => {
                     </div>
                 </Column>
                 </Container>
-                <Container>
+                <Container className="mb-10">
                 <Column columns={{ xl: { width: 5 }, md: { width: 1 }, }}>
                     <div className="pb-12">
                         <h1 className="text-2xl text-black font-bold flex justify-center uppercase pb-4">
@@ -83,8 +86,7 @@ const AboutUs = () => {
                             <div className="w-full md:w-1/2 mb-4 md:mb-0">
                                 <Image src={"/imagenH.png"} alt="" width={700} height={500} className="w-full h-auto"/>
                             </div>
-                            <div className="w-full md:w-1/2">
-                                {showMap && (
+                            <div className="hidden md:block lg:block w-1/2">
                                     <div className="mapContainer w-full">
                                         <iframe
                                             width="100%"
@@ -98,15 +100,14 @@ const AboutUs = () => {
                                         >
                                         </iframe>
                                     </div>
-                                )}
                             </div>
                         </div>
                     </div>
                     <div className="flex justify-center pb-4">
                         <Button1 
-                            text={showMap ? "Ocultar mapa" : "Como llegar?"} 
+                            text="¿Cómo llegar?" 
                             icon 
-                            onClick={() => setShowMap(!showMap)}
+                            onClick={handleMapClick}
                         />
                     </div>
                 </Column>
@@ -134,7 +135,7 @@ const AboutUs = () => {
                         <div className="flex justify-center items-center order-2 md:order-none">
                             <div className="w-full px-4 md:px-0">
                                 <InfoInput />
-                                <div className="flex space-x-2 justify-center md:justify-start relative bottom-8">
+                                <div className="flex space-x-2 ">
                                     <ButtonMail text='Contactanos' />
                                     <ButtonWhatsapp text="Contáctanos" />
                                 </div>

@@ -10,8 +10,8 @@ interface ButtonProps {
 export const Button1 = ({ text, icon, onClick }: ButtonProps) => {
     return (
         <div className="flex py-4">
-        <div className="bg-[#9C9C78] font-bold text-white px-4 py-2 flex items-center cursor-pointer" onClick={onClick}>
-            <p className="mr-2">{text}</p>
+        <div className="bg-[#9C9C78] font-bold text-white px-4 py-2 flex items-center cursor-pointer " onClick={onClick}>
+            <p className="mr-2 whitespace-nowrap">{text}</p>
             {icon && <ArrowRightMiniIcon />}
         </div>
     </div>

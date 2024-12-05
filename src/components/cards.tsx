@@ -3,6 +3,7 @@ import { useState } from "react";
 import { formatted } from "./formatted";
 import { HeartIcon, BathIcon, BedIcon, ParkingIcon } from "./icons";
 import Image from "next/image";
+import { Container } from "@bitnation-dev/components";
 type CardProps = {
     type?: "venta" | "renta";
     TP?: "Apartamento" | "Casa" | "Condominio" | "EcoAmigable";
@@ -25,6 +26,7 @@ const Card = ({  multimedia, price, location, bedrooms, bathrooms, parking, mete
     }
 
     return (
+        <Container>
         <div className="flex flex-col mt-4 p-1 cursor-pointer ">
             <div className="relative w-full">
                 {multimedia ? <Image onClick={onClick} width={500} height={500} src={multimedia} alt="" className="aspect-square object-cover w-full h-full" /> : <div className="w-full h-full bg-gray-200"> No Image Available</div>}
@@ -54,6 +56,7 @@ const Card = ({  multimedia, price, location, bedrooms, bathrooms, parking, mete
                 <p className="text-sm text-[#3B4504] pt-2">{location ? location : "-"}</p>
             </div>
         </div>
+        </Container>
     )
 }
 

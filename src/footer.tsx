@@ -7,14 +7,12 @@ import { useRouter } from "next/navigation";
 const Footer = () => {
     const router = useRouter()
     return (
-        <Container className="bg-black">
-            <footer className="text-white p-4 text-center w-full relative">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="col-span-1">
-                        <div className="pb-4 cursor-pointer flex md:justify-center justify-start" onClick={() => router.push("/")}>
+        <Container className="bg-black ">
+                    <div className="col-span-1 flex flex-col items-start">
+                        <div className="pb-4 cursor-pointer flex md:justify-center justify-start " onClick={() => router.push("/")}>
                             <MainIcon />
                         </div>
-                        <p className="lg:text-center text-left">
+                        <p className=" text-left">
                             Somos los expertos que necesitas para <br className="hidden md:block" />
                             sentirte seguro a la hora de invertir en <br className="hidden md:block" />
                             inmuebles desde Rep Dom
@@ -44,7 +42,7 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="sm:col-span-2 md:col-span-2 lg:col-span-1">
+                    {/*<div className="sm:col-span-2 md:col-span-2 lg:col-span-1">
                         <div className="grid grid-cols-2 gap-4">
                             <ul className="space-y-2 md:text-center text-left">
                                 <li><a href="#" className="hover:underline">Inmuebles</a></li>
@@ -61,15 +59,13 @@ const Footer = () => {
                                 <li><a href="#" className="hover:underline">Community</a></li>
                             </ul>
                         </div>
-                    </div>
-                    </div>
+                    </div>*/}
                     <div className="relative w-full pt-8">
                         <div className="flex flex-col justify-center md:justify-end">
                             <p className="text-end">© 2024 emira Group</p>
                             <p className="text-end">All rights reserved</p>
                         </div>
-                </div>
-            </footer>
+                    </div>
         </Container>
     )
 };

@@ -1,7 +1,7 @@
 'use client'
 import { Grid, Container } from "@bitnation-dev/components";
 import Card from "@/components/cards";
-import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
+import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, FindIcon } from "@/components/icons";
 import Filter from "@/components/sidebar";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -87,7 +87,7 @@ export default function Proyects() {
                 <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
               </div>
               <div className="text-black w-full">
-                <div className="flex flex-col gap-4 mb-4">
+                <div className="flex flex-col lg:flex-row gap-4 mb-4">
                   <div className="flex justify-between items-center gap-2">
                     <button 
                       onClick={() => setShowMobileFilter(!showMobileFilter)}
@@ -99,22 +99,28 @@ export default function Proyects() {
                       <span className="ml-2">Filtrar</span>
                     </button>
 
-                    <div className="w-full md:w-auto h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover:cursor-pointer">
-                      <p>Ordenar Por Reciente </p>
+                    <div className="lg:hidden w-full h-10 text-black text-left px-2 border-2 border-gray-500 flex items-center hover:cursor-pointer justify-between">
+                      <p>Ordenar Por:  </p>
                       <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                       </svg>
                     </div>
                   </div>
-
-                  <input 
-                    onChange={handleSearchChange} 
+                  <div className="relative flex items-center gap-2">
+                    <div className="absolute left-2 ">
+                    <FindIcon />
+                    </div>
+                    <input 
+                      onChange={handleSearchChange} 
                     type="text" 
                     placeholder="Buscar por ciudad" 
-                    className="w-full h-10 px-2 py-2 border-2 border-gray-500 bg-white text-black" 
-                  />
+                    className="w-full h-10 pl-8 py-2 border-2 border-gray-500 bg-white text-black"/>
+                  </div>
+                  <div className="hidden lg:flex flex-row items-center justify-between w-full h-10 border-2 border-gray-500 px-2">
+                      <p>Ordenar Por:  </p>
+                      <ArrowDownIcon />
+                    </div>
                 </div>
-
                 <div className={`md:hidden ${showMobileFilter ? 'block' : 'hidden'} mb-4`}>
                   <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
                 </div>
