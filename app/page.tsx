@@ -51,9 +51,9 @@ export default function Home() {
 
     return (
         <>
-            <Container style={{ backgroundImage: "url('/imageCover.png')" }} className="bg-cover ">
-                <div className="h-[65vh] bg-cover bg-no-repeat bottom-10 relative text-center justify-center flex flex-col space-y-4 px-4">
-                    <h1 className="text-white text-center text-4xl md:text-6xl font-bold uppercase">
+            <Container style={{ backgroundImage: "url('/imageCover.png')" }} className="bg-cover h-[90lvh] ">
+                <div className="h-[65vh] bg-cover bg-no-repeat bottom-10 relative  justify-center flex flex-col space-y-4 px-2 text-balance">
+                    <h1 className="text-white text-center text-3xl md:text-6xl font-bold uppercase  ">
                         Las mejores Inversiones <br /> Inmobiliarias
                     </h1>
                     <p className="text-[#9C9C78] text-center text-xl md:text-2xl">
@@ -65,13 +65,13 @@ export default function Home() {
                             placeholder="Pais, Ciudad, Proyecto, ID, Zonas" 
                             className="w-[80%] md:w-[40%] h-16 px-4 py-2 border-2 border-[#9C9C78] bg-white text-[#9C9C78]" 
                         />
-                        <div className="w-12 h-12 justify-center flex items-center border-2 border-[#9C9C78] relative right-14 top-2 bg-[#9C9C78] cursor-pointer">
+                        <div className="w-12 h-12 justify-center flex items-center border-2 border-[#9C9C78] relative right-14 top-2 bg-[#9C9C78] cursor-pointer hidden lg:flex">
                             <SearchIcon />
                         </div>
                     </div>
                 </div>
             </Container>
-            <Container>
+            <Container className="h-[90lvh]">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3B4504] text-center sm:text-left" >Proyectos Recomendados</h1>
                 <Grid columns={{ xl: 4, md: 1, sm: 1, }}>
                     
@@ -105,7 +105,7 @@ export default function Home() {
                 <div className="flex justify-end">
                     <Button1 text="Mas Proyectos Similares" icon onClick={() => router.push('/proyects')} />
                 </div>
-            </Container>
+            </Container >
             <Container className="bg-[#F5F5F5] [&>.container-inside]:!p-0 mt-10 sm:flex-col">
                 <div >
                     <Grid columns={{ xl: 2, md: 1, sm: 1 }}>
@@ -139,7 +139,7 @@ export default function Home() {
                                     </p>
                                     <div className="flex space-x-4 py-4">
                                         <ButtonMail text="Contáctanos" onClick={handleInfoInput} />
-                                        <ButtonWhatsapp text="Contáctanos" />
+                                        <ButtonWhatsapp text="Contáctanos"  />
                                     </div>
                                 </div>
                             )}

@@ -7,7 +7,7 @@ import InfoInput from "@/components/input"
 import Profile from "@/components/profile"
 import { Column, Container, Grid } from "@bitnation-dev/components"
 import Image from "next/image"
-import React, { useState } from "react"
+import React from "react"
 import { usePathname } from "next/navigation"
 
 
@@ -24,17 +24,19 @@ const AboutUs = () => {
 
     return (
         <>
-        <Container>
+        <Container >
+            <div className="hidden lg:block">
                 <p className="text-black font-['poppins'] font-light">
                     Home &gt; {pathname === "/aboutus" ? pageName : pathname}
                 </p>
+        </div>
             <div>
                 <h1 className="text-3xl text-black font-bold font-['Poppins'] py-4">
                     NOSOTROS
                 </h1>
             </div>
             </Container>
-                <Container className="bg-cover mb-10"  style={{ backgroundImage: "url('/imageCover.png')" }}>
+                <Container className="bg-cover container-inside"  style={{ backgroundImage: "url('/imageCover.png')" }}>
                     <div className="h-[90dvh] flex flex-col  justify-between" >
                         <div className="flex flex-col  p-2 ">
                             <h1 className="text-[#9C9C78] text-2xl font-bold uppercase pb-4 ">¿Quienes Somos?</h1>

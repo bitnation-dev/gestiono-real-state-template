@@ -69,14 +69,14 @@ export default function Proyects() {
   return (
     < >
       <Grid columns={{ xl: 1, lg: 1, md: 1, sm: 1 }}>
-        <Container className=" bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
+        <Container className=" bg-cover h-[20dvh] " style={{ backgroundImage: "url('/imagen3.png')" }}>
           <div className="flex flex-col  text-white ">
-            <div className="mb-4">
+            <div className="mb-4 hidden lg:block">
             <p className="font-['poppins']">
               Home &gt; {pathname === "/proyects" ? pageName : pathname}
             </p>
           </div>
-          <h1 className="text-4xl font-bold font-['poppins']">Inmuebles</h1>
+          <h1 className="text-4xl font-bold font-['poppins'] uppercase">Inmuebles</h1>
           </div>
         </Container>
 
