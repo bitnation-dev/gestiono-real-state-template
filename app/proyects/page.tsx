@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Propiedades from "@/propertiesProp";
+import { motion, AnimatePresence } from 'framer-motion';
 
 
 const ITEMS_PER_PAGE = 12;
@@ -65,6 +66,17 @@ export default function Proyects() {
     router.push(`/description?id=${id}`)
 }
 
+useEffect(() => {
+  if (showMobileFilter) {
+      document.body.classList.add('overflow-hidden');
+  } else {
+      document.body.classList.remove('overflow-hidden');
+  }
+
+  return () => {
+      document.body.classList.remove('overflow-hidden');
+  };
+}, [showMobileFilter]);
 
   return (
     < >
@@ -83,7 +95,7 @@ export default function Proyects() {
           <Grid columns={{ xl: 1, md: 1, sm: 1 }}>
           <Container>
             <div className="flex flex-col md:flex-row md:space-x-8">
-              <div className="text-black w-full md:w-auto mb-4 md:mb-0">
+              <div className="hidden md:block text-black w-full md:w-auto mb-4 md:mb-0">
                 <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
               </div>
               <div className="text-black w-full">
@@ -120,9 +132,6 @@ export default function Proyects() {
                       <p>Ordenar Por:  </p>
                       <ArrowDownIcon />
                     </div>
-                </div>
-                <div className={`md:hidden ${showMobileFilter ? 'block' : 'hidden'} mb-4`}>
-                  <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
                 </div>
 
                 <h1 className="text-2xl font-bold pt-4 pl-4">INMUEBLES DE SANTIAGO</h1>
@@ -185,12 +194,30 @@ export default function Proyects() {
           </Container>
         </Grid>
       </Grid>
-      {showMobileFilter && (
-          <div 
-              className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+      <AnimatePresence>
+        {showMobileFilter && (
+          <>
+            <motion.div 
+              initial={{ x: -320 }}
+              animate={{ x: 0 }}
+              exit={{ x: -320 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="fixed top-0 left-0 h-full w-80 z-50 md:hidden text-black"
+            >
+              <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-0 left-0 w-full h-[100dvh] bg-black z-40 md:hidden"
               onClick={() => setShowMobileFilter(false)}
-          />
-      )}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };

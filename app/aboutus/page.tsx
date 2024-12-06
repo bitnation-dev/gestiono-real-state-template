@@ -70,7 +70,7 @@ const AboutUs = () => {
                         <h1 className="text-4xl text-black font-bold pb-4">
                             Nuestro Equipo
                         </h1>
-                        <div className="flex overflow-x-auto md:flex-row pb-4 md:pb-0 gap-4 md:justify-center no-scrollbar">
+                        <div className="flex overflow-x-auto pb-4 gap-4 no-scrollbar">
                         {Array.from({length: 3}).map((_, index) => (
                             <Profile  key={index}/>
                         ) )}

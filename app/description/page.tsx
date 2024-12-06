@@ -59,12 +59,10 @@ export default function Description() {
             document.body.classList.remove('overflow-hidden');
         }
 
-        // Cleanup cuando el componente se desmonte
         return () => {
             document.body.classList.remove('overflow-hidden');
         };
     }, [isModalOpen]);
-    console.log(data)
 
     return (
         <>

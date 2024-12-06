@@ -31,8 +31,8 @@ const Contactanos = () => {
             </div>
             <InfoInput />
             <div className="w-full space-x-2 flex justify-center items-center">
-                <ButtonMail text="Contáctanos" width={80} />
-                <ButtonWhatsapp text="Contáctanos" width={80} />
+                <ButtonMail text="Contáctanos" />
+                <ButtonWhatsapp text="Contáctanos" />
             </div>
         </div>
     )

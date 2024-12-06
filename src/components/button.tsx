@@ -4,7 +4,6 @@ interface ButtonProps {
     text?: string;
     icon?: boolean;
     onClick?: () => void;
-    width?: number
 }
 
 export const Button1 = ({ text, icon, onClick }: ButtonProps) => {
@@ -19,7 +18,7 @@ export const Button1 = ({ text, icon, onClick }: ButtonProps) => {
 }
 
 
-export const ButtonMail = ({ text, onClick, width }: ButtonProps) => {
+export const ButtonMail = ({ text, onClick  }: ButtonProps) => {
     return (
         <button className="bg-[#9C9C78] text-white px-4 py-2 flex items-center cursor-pointer space-x-4 h-12 justify-center"  onClick={onClick}>
             <MailIcon /> 
@@ -28,12 +27,25 @@ export const ButtonMail = ({ text, onClick, width }: ButtonProps) => {
     )
 }
 
-export const ButtonWhatsapp = ({ text, onClick, width }: ButtonProps) => {
+export const ButtonWhatsapp = ({ text, onClick }: ButtonProps) => {
+    const phoneNumber = "8495198432";
+    const whatsappUrl = `https://wa.me/${phoneNumber}`;
+
+    const handleWhatsAppClick = () => {
+        if (onClick) onClick();
+    };
+
     return (
-        <div className="bg-[#60D669] text-white px-4 py-2 flex items-center cursor-pointer  space-x-4 h-12 justify-center"  onClick={onClick}> 
+        <a 
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#60D669] text-white px-4 py-2 flex items-center cursor-pointer space-x-4 h-12 justify-center" 
+            onClick={handleWhatsAppClick}
+        > 
             <WhatsappIcon />
             <p>{text}</p>
-        </div>       
+        </a>       
     )
 }
 
