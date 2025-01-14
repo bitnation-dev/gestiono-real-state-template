@@ -3,9 +3,16 @@ import { MoneyIcon } from "./icons";
 type SideFilterProps = {
     title: string;
     options: string[];
+    onFilterChange?: (option: string, checked: boolean) => void;
 }
 
-export const SideFilter = ({ title, options }: SideFilterProps) => {
+export const SideFilter = ({ title, options, onFilterChange }: SideFilterProps) => {
+    const handleCheckboxChange = (option: string, checked: boolean) => {
+        if (onFilterChange) {
+            onFilterChange(option, checked);
+        }
+    };
+
     return (
         <div className="mt-8">
             <h3 className="text-lg font-semibold mb-4">{title}</h3>
@@ -15,6 +22,7 @@ export const SideFilter = ({ title, options }: SideFilterProps) => {
                         type="checkbox"
                         id={`opcion-${index}`}
                         className="mr-2"
+                        onChange={(e) => handleCheckboxChange(opcion, e.target.checked)}
                     />
                     <label htmlFor={`opcion-${index}`} className="text-sm">
                         {opcion}

@@ -1,49 +1,38 @@
 'use client'
 import { Grid, Container } from "@bitnation-dev/components";
 import Card from "@/components/cards";
-import { ArrowLeftIcon, ArrowRightIcon } from "@/components/icons";
+import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, FindIcon } from "@/components/icons";
 import Filter from "@/components/sidebar";
 import { usePathname } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Propiedades from "@/propertiesProp";
+import { motion, AnimatePresence } from 'framer-motion';
 
-interface Propiedades {
-  id: number;
-  type: string;
-  price: number;
-  bathrooms: number;
-  description: string;
-  bedrooms: number;
-  parking: number;
-  operation: string;
-  image: string;
-  location: string;
-  meters: number;
-  title: string;
-}
 
 const ITEMS_PER_PAGE = 12;
 
-const Home = () => {
+export default function Proyects() {
   const pathname = usePathname()
   const pageName = <span style={{ color: '#9C9C78' }}>Inmuebles</span>
   const [data, setData] = useState<Propiedades[]>([]);
-  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchLocation, setSearchLocation] = useState('');
+  const [, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const [showMobileFilter, setShowMobileFilter] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/data/house.json');
+        const response = await fetch('/api/properties');
         if (!response.ok) {
           throw new Error('Error al cargar las propiedades');
         }
         const result = await response.json();
-        console.log('Respuesta del API:', result);
-  
-        setData(result.properties);
+        setData(result);
+        setLoading(false);
       } catch (error) {
         setError((error as Error).message);
       }
@@ -52,9 +41,11 @@ const Home = () => {
     fetchData();
   }, []); 
 
-  const filteredData = data.filter((propiedad) =>
-    propiedad.location.toLowerCase().includes(searchLocation.toLowerCase())
-  );
+
+
+    const filteredData = data.filter((propiedad) =>
+      propiedad.title.toLowerCase().includes(searchLocation.toLowerCase())
+    );
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -75,60 +66,107 @@ const Home = () => {
     router.push(`/description?id=${id}`)
 }
 
+useEffect(() => {
+  if (showMobileFilter) {
+      document.body.classList.add('overflow-hidden');
+  } else {
+      document.body.classList.remove('overflow-hidden');
+  }
 
-
-  if (error) return <div className="text-black h-screen flex justify-center items-center">{error}</div>;
+  return () => {
+      document.body.classList.remove('overflow-hidden');
+  };
+}, [showMobileFilter]);
 
   return (
     < >
-      <Grid columns={{ xl: 1 }}>
-        <Container className=" bg-cover" style={{ backgroundImage: "url('/imagen3.png')" }}>
+      <Grid columns={{ xl: 1, lg: 1, md: 1, sm: 1 }}>
+        <Container className=" bg-cover h-[20dvh] " style={{ backgroundImage: "url('/imagen3.png')" }}>
           <div className="flex flex-col  text-white ">
-            <div className="mb-4">
+            <div className="mb-4 hidden lg:block">
             <p className="font-['poppins']">
               Home &gt; {pathname === "/proyects" ? pageName : pathname}
             </p>
           </div>
-          <h1 className="text-4xl font-bold font-['poppins']">Inmuebles</h1>
+          <h1 className="text-4xl font-bold font-['poppins'] uppercase">Inmuebles</h1>
           </div>
         </Container>
 
-          <Grid columns={{ xl: 1, md: 1, sm: 1, }} >
+          <Grid columns={{ xl: 1, md: 1, sm: 1 }}>
           <Container>
-            <div className="flex space-x-8">
-            <div className="text-black">
-              <Filter results={filteredData.length}/>
-            </div>
-            <div className="text-black w-screen ">
-              <div className="flex space-x-4">
-                <input onChange={handleSearchChange} type="text" placeholder="Buscar por ciudad" className="w-[80%] h-10 px-4 py-2 border-2 border-gray-500 bg-white text-black" />
-                <div className=" h-10 text-black text-left pl-2 border-2 border-gray-500 flex items-center hover: cursor-pointer">
-                  <p>Ordenar Por Reciente </p>
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                  </svg>
+            <div className="flex flex-col md:flex-row md:space-x-8">
+              <div className="hidden md:block text-black w-full md:w-auto mb-4 md:mb-0">
+                <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
+              </div>
+              <div className="text-black w-full">
+                <div className="flex flex-col lg:flex-row gap-4 mb-4">
+                  <div className="flex justify-between items-center gap-2">
+                    <button 
+                      onClick={() => setShowMobileFilter(!showMobileFilter)}
+                      className="md:hidden flex items-center px-4 h-10 border-2 border-gray-500 hover:border-black bg-[#3B4504] text-white"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                      </svg>
+                      <span className="ml-2">Filtrar</span>
+                    </button>
+
+                    <div className="lg:hidden w-full h-10 text-black text-left px-2 border-2 border-gray-500 flex items-center hover:cursor-pointer justify-between">
+                      <p>Ordenar Por:  </p>
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="relative flex items-center gap-2">
+                    <div className="absolute left-2 ">
+                    <FindIcon />
+                    </div>
+                    <input 
+                      onChange={handleSearchChange} 
+                    type="text" 
+                    placeholder="Buscar por ciudad" 
+                    className="w-full h-10 pl-8 py-2 border-2 border-gray-500 bg-white text-black"/>
+                  </div>
+                  <div className="hidden lg:flex flex-row items-center justify-between w-full h-10 border-2 border-gray-500 px-2">
+                      <p>Ordenar Por:  </p>
+                      <ArrowDownIcon />
+                    </div>
                 </div>
+
+                <h1 className="text-2xl font-bold pt-4 pl-4">INMUEBLES DE SANTIAGO</h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-8">
+                    
+              {loading ? (
+                    <div className="flex flex-col gap-4">
+                        {Array.from({ length: 1 }).map((_, index) => (
+                            <div key={index} className="animate-pulse flex flex-col space-y-4 p-4 border ">
+                                <div className="bg-gray-300 h-72 w-[95%] "></div>
+                                <div className="bg-gray-300 h-6 w-3/4"></div>
+                                <div className="bg-gray-300 h-6 w-[95%]  "></div>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                     currentData.map((propiedad) => (
+                        <Card
+                            key={propiedad?.id}
+                            multimedia={propiedad?.image[0]}
+                            price={propiedad?.price}
+                            location={propiedad?.location}
+                            bedrooms={propiedad?.bedrooms}
+                            bathrooms={propiedad?.bathrooms}
+                            parking={propiedad?.parking}
+                            meters={propiedad?.meters}
+                            operation={propiedad?.operation}
+                            onClick={() => handleRouter(propiedad.id)}
+                        />
+                    ))
+                )}
               </div>
-              <h1 className="text-2xl font-bold pt-4 pl-4">INMUEBLES DE SANTIAGO</h1>
-              <div className="grid grid-cols-3 gap-y-8">
-              {currentData.map((propiedad) => (
-                    <Card
-                      key={propiedad.id}
-                      image={propiedad.image}
-                      price={propiedad.price}
-                      location={propiedad.location}
-                      bedrooms={propiedad.bedrooms}
-                      bathrooms={propiedad.bathrooms}
-                      parking={propiedad.parking}
-                      meters={propiedad.meters} 
-                      operation={propiedad.operation}
-                      onClick={() => handleRouter(propiedad.id)}
-                    />
-                  ))}
               </div>
-              </div>    
             </div>
-            <div className="flex w-full justify-end py-20">
+            <div className="flex flex-wrap w-full justify-center md:justify-end py-10 md:py-20 gap-2">
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 className="px-4 py-2 border text-black hover:border-2 hover:border-black cursor-pointer"
@@ -156,8 +194,30 @@ const Home = () => {
           </Container>
         </Grid>
       </Grid>
+      <AnimatePresence>
+        {showMobileFilter && (
+          <>
+            <motion.div 
+              initial={{ x: -320 }}
+              animate={{ x: 0 }}
+              exit={{ x: -320 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+              className="fixed top-0 left-0 h-full w-80 z-50 md:hidden text-black"
+            >
+              <Filter results={filteredData.length} showMobileFilter={showMobileFilter}/>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-0 left-0 w-full h-[100dvh] bg-black z-40 md:hidden"
+              onClick={() => setShowMobileFilter(false)}
+            />
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
-
-export default Home;

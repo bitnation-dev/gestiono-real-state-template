@@ -3,8 +3,8 @@ import Image from "next/image"
 const Profile = () => { 
     return (
         <div>
-            <div className="">
-                <div className="w-[400px] h-[450px] bg-gray-200 px-4">
+            <div className="flex flex-col items-center justify-center space-y-4">
+                <div className="w-[340px] h-[380px] bg-gray-200 px-4 lg:w-[400px] lg:h-[450px]">
                     <Image src={"/imagenP.png"} alt="Imagen de portada"  width={380} height={400}/>
                 </div>
                 <div className="flex flex-col items-center justify-center">
